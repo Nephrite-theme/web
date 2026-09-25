@@ -10,6 +10,11 @@ import { defineConfig } from "vite";
 
 const config = defineConfig({
 	resolve: { tsconfigPaths: true },
+	ssr: {
+		// GSAP ships ESM syntax without "type": "module", so Node on Netlify
+		// loads its plugins as CommonJS and named imports fail. Bundle it.
+		noExternal: ["gsap", "@gsap/react"],
+	},
 	plugins: [
 		devtools(),
 		paraglideVitePlugin({
