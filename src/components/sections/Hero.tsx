@@ -60,7 +60,7 @@ export function Hero() {
 			className="relative mx-auto grid min-h-[100dvh] w-full max-w-[1400px] items-center gap-14 px-4 pt-28 pb-20 md:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-24"
 		>
 			<div className="relative z-10 max-w-[40rem]">
-				<h1 className="text-[2.75rem] leading-[1.02] font-semibold tracking-[-0.035em] sm:text-6xl lg:text-[4.75rem]">
+				<h1 className="text-[2.15rem] leading-[1.04] font-semibold tracking-[-0.035em] sm:text-6xl lg:text-[4.75rem]">
 					<span className="block overflow-hidden pb-1">
 						<span data-hero-line className="block">
 							{m.hero_title_a()}

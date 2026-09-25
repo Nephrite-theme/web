@@ -41,7 +41,7 @@ export function Shot({
 		>
 			<img src="/logo.png" alt="" className="size-20 opacity-30 md:size-28" />
 			<span
-				className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 font-mono text-[11px]"
+				className="absolute bottom-3 left-1/2 max-w-[90%] -translate-x-1/2 truncate whitespace-nowrap rounded-full px-3 py-1 font-mono text-[10px] md:bottom-4 md:text-[11px]"
 				style={{
 					color: variant.dark
 						? "rgb(255 255 255 / 0.55)"

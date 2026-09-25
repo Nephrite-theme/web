@@ -13,7 +13,11 @@ type Status = "available" | "next" | "planned";
 
 type Item = {
 	key: string;
-	icon: ComponentType<{ size?: number; className?: string }>;
+	icon: ComponentType<{
+		size?: number;
+		className?: string;
+		"aria-hidden"?: boolean;
+	}>;
 	title: () => string;
 	body: () => string;
 	status: Status;
@@ -143,6 +147,7 @@ export function Roadmap() {
 								>
 									<div className="flex items-center justify-between">
 										<Icon
+											aria-hidden
 											size={28}
 											className={live ? "text-jade-soft" : "text-fg-muted"}
 										/>
