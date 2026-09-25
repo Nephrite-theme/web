@@ -1,23 +1,19 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "meta_title": "Nephrite: el estándar esmeralda para tu navegador",
-  "meta_description": "Un tema jade sereno y sin deslumbramientos para Chrome. Tres variantes, cada superficie afinada. Firefox y VS Code vienen en camino.",
-
+  "meta_description": "Un tema jade sereno y sin deslumbramientos para Chrome, con una variante para cada luz. Firefox y VS Code vienen en camino.",
   "nav_variants": "Variantes",
   "nav_details": "Detalles",
   "nav_roadmap": "Roadmap",
   "nav_menu_open": "Abrir menú",
   "nav_menu_close": "Cerrar menú",
   "nav_home": "Inicio de Nephrite",
-
   "cta_chrome": "Obtener para Chrome",
   "cta_github": "Ver en GitHub",
-
-  "hero_eyebrow": "Ya disponible para Chrome",
+  "cta_add": "Añadir a Chrome",
   "hero_title_a": "El estándar esmeralda",
   "hero_title_b": "para tu navegador.",
-  "hero_body": "Un tema sereno y sin deslumbramientos para Chrome. Tres variantes, cada superficie afinada, nada compitiendo por tu atención.",
-
+  "hero_body": "Un tema sereno y sin deslumbramientos para Chrome. Cada superficie afinada, con un tono de jade para cada luz.",
   "variants_title": "Elige el verde que va con tu luz.",
   "variants_body": "Forest para la noche. Mint y Jade para el día. Cámbialo cuando quieras desde la configuración de Chrome.",
   "variants_tablist": "Variantes del tema",
@@ -27,7 +23,6 @@
   "swatch_frame": "Marco",
   "swatch_toolbar": "Barra",
   "swatch_text": "Texto de pestaña",
-
   "details_title": "Decisiones pequeñas, en cada rincón.",
   "detail_eyes_title": "Descanso para la vista",
   "detail_eyes_body": "Verdes suaves y contraste afinado para sesiones largas, desde la primera pestaña hasta la cuadragésima.",
@@ -40,14 +35,13 @@
   "surface_bookmarks": "Marcadores",
   "detail_open_title": "Hecho en abierto",
   "detail_open_body": "Cada color vive en un repositorio público. Haz un fork, ajústalo, envía un pull request.",
-
   "roadmap_eyebrow": "Roadmap",
   "roadmap_title": "Una paleta, donde sea que trabajes.",
   "status_available": "Disponible",
   "status_next": "En progreso",
   "status_planned": "Planeado",
   "rm_chrome_title": "Chrome",
-  "rm_chrome_body": "El tema principal, en tres variantes.",
+  "rm_chrome_body": "El tema principal, en todas sus variantes.",
   "rm_firefox_title": "Firefox",
   "rm_firefox_body": "La misma paleta jade, adaptada a la barra y el panel lateral de Firefox.",
   "rm_vscode_title": "VS Code",
@@ -56,13 +50,10 @@
   "rm_spotify_body": "Un reproductor más tranquilo, a juego con tu escritorio.",
   "rm_terminal_title": "Terminal",
   "rm_terminal_body": "Perfiles para Windows Terminal, iTerm2 y Hyper.",
-
   "closing_title": "Dale calma a tu navegador.",
   "closing_body": "Firefox y VS Code son lo siguiente. Sigue el progreso en GitHub o X.",
-
   "footer_tagline": "El estándar esmeralda para tu navegador.",
   "footer_rights": "© {year} Nephrite",
-
   "language_label": "Idioma",
   "shot_pending": "Captura pendiente: {name}",
   "shot_alt": "Chrome con el tema {name} aplicado"

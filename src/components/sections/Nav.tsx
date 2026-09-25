@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import LocaleSwitcher from "#/components/LocaleSwitcher";
+import { InstallMenu } from "#/components/ui/InstallMenu";
 import { Logo } from "#/components/ui/Logo";
-import { PillLink } from "#/components/ui/PillLink";
+import { Swatch } from "#/components/ui/Swatch";
 import { EASE_OUT, gsap, MOTION_OK, useGSAP } from "#/lib/gsap";
-import { LINKS } from "#/lib/site";
+import { VARIANTS } from "#/lib/site";
 import { cn } from "#/lib/utils";
 import { m } from "#/paraglide/messages";
 
@@ -98,13 +99,7 @@ export function Nav() {
 
 					<div className="flex items-center gap-2">
 						<LocaleSwitcher className="hidden md:inline-flex" />
-						<PillLink
-							href={LINKS.chrome}
-							size="sm"
-							className="hidden md:inline-flex"
-						>
-							{m.cta_chrome()}
-						</PillLink>
+						<InstallMenu size="sm" align="end" className="hidden md:block" />
 
 						<button
 							type="button"
@@ -152,13 +147,26 @@ export function Nav() {
 						</li>
 					))}
 				</ul>
-				<div className="flex flex-col items-start gap-6 overflow-hidden">
+				<div className="flex flex-col items-start gap-6">
 					<div data-nav-item>
 						<LocaleSwitcher />
 					</div>
-					<div data-nav-item>
-						<PillLink href={LINKS.chrome}>{m.cta_chrome()}</PillLink>
-					</div>
+					<ul className="flex w-full flex-col gap-2">
+						{VARIANTS.map((v) => (
+							<li key={v.key} data-nav-item>
+								<a
+									href={v.store}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="flex items-center gap-3 rounded-2xl bg-white/[0.04] px-4 py-3 ring-1 ring-hairline"
+								>
+									<Swatch variant={v} className="size-6" />
+									<span className="flex-1 text-sm font-medium">{v.name}</span>
+									<span className="text-xs text-jade-soft">{m.cta_add()}</span>
+								</a>
+							</li>
+						))}
+					</ul>
 				</div>
 			</div>
 		</div>

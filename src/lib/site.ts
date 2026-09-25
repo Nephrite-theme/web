@@ -1,15 +1,16 @@
+import { m } from "#/paraglide/messages";
+
 export const LINKS = {
-	chrome: "https://github.com/Nephrite-theme/chrome",
 	github: "https://github.com/Nephrite-theme",
 	x: "https://x.com/NephriteTheme",
 	site: "https://getnephrite.dev",
 } as const;
 
-export type VariantKey = "forest" | "mint" | "jade";
-
 export type Variant = {
-	key: VariantKey;
+	key: string;
 	name: string;
+	description: () => string;
+	store: string;
 	frame: string;
 	toolbar: string;
 	tabText: string;
@@ -18,11 +19,16 @@ export type Variant = {
 	shot: string | null;
 };
 
-// Colors taken from the published Chrome theme manifests.
+// Single source of truth for every published variant. To add one, append an
+// entry here and a `variant_{key}_desc` message in messages/*.json.
+// Colors come from each variant's Chrome theme manifest.
 export const VARIANTS: Variant[] = [
 	{
 		key: "forest",
 		name: "Nephrite Forest",
+		description: () => m.variant_forest_desc(),
+		store:
+			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-for/efhfempmenojdgamociancffkcbncffp",
 		frame: "#111F17",
 		toolbar: "#16291E",
 		tabText: "#FFFFFF",
@@ -32,6 +38,9 @@ export const VARIANTS: Variant[] = [
 	{
 		key: "mint",
 		name: "Nephrite Mint",
+		description: () => m.variant_mint_desc(),
+		store:
+			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-min/ogfckpiocojbdmefjoogcmjmgfofijpg",
 		frame: "#6BC4A8",
 		toolbar: "#ECFDF5",
 		tabText: "#111F17",
@@ -41,6 +50,9 @@ export const VARIANTS: Variant[] = [
 	{
 		key: "jade",
 		name: "Nephrite Jade",
+		description: () => m.variant_jade_desc(),
+		store:
+			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-jad/ijmbncbgabefgapchogbdnhfgbiiimcm",
 		frame: "#266E48",
 		toolbar: "#F0FDF4",
 		tabText: "#111F17",

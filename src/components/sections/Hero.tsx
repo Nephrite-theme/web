@@ -1,5 +1,6 @@
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { useRef } from "react";
+import { InstallMenu } from "#/components/ui/InstallMenu";
 import { PillLink } from "#/components/ui/PillLink";
 import { Shot } from "#/components/ui/Shot";
 import { EASE_OUT, gsap, MOTION_OK, useGSAP } from "#/lib/gsap";
@@ -59,13 +60,6 @@ export function Hero() {
 			className="relative mx-auto grid min-h-[100dvh] w-full max-w-[1400px] items-center gap-14 px-4 pt-28 pb-20 md:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-24"
 		>
 			<div className="relative z-10 max-w-[40rem]">
-				<p
-					data-hero-fade
-					className="mb-7 inline-flex rounded-full bg-jade/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-jade-soft ring-1 ring-jade/20"
-				>
-					{m.hero_eyebrow()}
-				</p>
-
 				<h1 className="text-[2.75rem] leading-[1.02] font-semibold tracking-[-0.035em] sm:text-6xl lg:text-[4.75rem]">
 					<span className="block overflow-hidden pb-1">
 						<span data-hero-line className="block">
@@ -87,7 +81,7 @@ export function Hero() {
 				</p>
 
 				<div data-hero-fade className="mt-10 flex flex-wrap items-center gap-3">
-					<PillLink href={LINKS.chrome}>{m.cta_chrome()}</PillLink>
+					<InstallMenu />
 					<PillLink
 						href={LINKS.github}
 						variant="ghost"
