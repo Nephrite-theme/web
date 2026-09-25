@@ -94,7 +94,7 @@ export const PORT_CATEGORIES: PortCategory[] = [
 	"music",
 ];
 
-export const REQUEST_PORT_URL = `${LINKS.github}/web/issues/new?title=${encodeURIComponent("Port request: ")}`;
+export const REQUEST_PORT_URL = `${LINKS.github}/web/issues/new?template=port-request.yml`;
 
 export const STATUS_LABEL: Record<PortStatus, () => string> = {
 	available: () => m.status_available(),
