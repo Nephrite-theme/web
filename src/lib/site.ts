@@ -15,7 +15,7 @@ export type Variant = {
 	toolbar: string;
 	tabText: string;
 	dark: boolean;
-	// TODO: add real screenshots at public/shots/{key}.webp (1600x1000) and set the path here.
+	// Browser-window capture at public/shots/{key}.webp (1188x640), or null for a placeholder.
 	shot: string | null;
 };
 
@@ -33,7 +33,7 @@ export const VARIANTS: Variant[] = [
 		toolbar: "#16291E",
 		tabText: "#FFFFFF",
 		dark: true,
-		shot: null,
+		shot: "/shots/forest.webp",
 	},
 	{
 		key: "mint",
@@ -45,7 +45,7 @@ export const VARIANTS: Variant[] = [
 		toolbar: "#ECFDF5",
 		tabText: "#111F17",
 		dark: false,
-		shot: null,
+		shot: "/shots/mint.webp",
 	},
 	{
 		key: "jade",
@@ -57,7 +57,7 @@ export const VARIANTS: Variant[] = [
 		toolbar: "#F0FDF4",
 		tabText: "#111F17",
 		dark: false,
-		shot: null,
+		shot: "/shots/jade.webp",
 	},
 ];
 

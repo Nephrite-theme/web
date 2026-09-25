@@ -19,11 +19,11 @@ export function Shot({
 			<img
 				src={variant.shot}
 				alt={m.shot_alt({ name: variant.name })}
-				width={1600}
-				height={1000}
+				width={1188}
+				height={640}
 				loading={priority ? "eager" : "lazy"}
 				fetchPriority={priority ? "high" : "auto"}
-				className={cn("aspect-[16/10] w-full object-cover", className)}
+				className={cn("aspect-[1188/640] w-full object-cover", className)}
 			/>
 		);
 	}
@@ -33,7 +33,7 @@ export function Shot({
 			role="img"
 			aria-label={m.shot_pending({ name: variant.name })}
 			className={cn(
-				"relative flex aspect-[16/10] w-full items-center justify-center",
+				"relative flex aspect-[1188/640] w-full items-center justify-center",
 				className,
 			)}
 			style={{
@@ -52,7 +52,7 @@ export function Shot({
 						: "rgb(17 31 23 / 0.06)",
 				}}
 			>
-				{m.shot_pending({ name: variant.name })} · 1600×1000
+				{m.shot_pending({ name: variant.name })}
 			</span>
 		</div>
 	);
