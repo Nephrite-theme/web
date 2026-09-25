@@ -18,6 +18,8 @@ export function Nav() {
 	const [open, setOpen] = useState(false);
 	const root = useRef<HTMLDivElement>(null);
 	const tl = useRef<gsap.core.Timeline>(null);
+	const toggle = useRef<HTMLButtonElement>(null);
+	const wasOpen = useRef(false);
 
 	useGSAP(
 		() => {
@@ -26,15 +28,6 @@ export function Nav() {
 				{ motion: MOTION_OK, reduce: "(prefers-reduced-motion: reduce)" },
 				(ctx) => {
 					const { motion } = ctx.conditions as { motion: boolean };
-					if (motion) {
-						gsap.to("[data-nav-pill]", {
-							y: 0,
-							opacity: 1,
-							duration: 1.2,
-							ease: EASE_OUT,
-							delay: 0.2,
-						});
-					}
 					tl.current = gsap
 						.timeline({ paused: true })
 						.set("[data-nav-overlay]", { autoAlpha: 1 })
@@ -70,6 +63,18 @@ export function Nav() {
 		const smoother = ScrollSmoother.get();
 		if (smoother) smoother.paused(open);
 		else document.documentElement.style.overflow = open ? "hidden" : "";
+		// Keep focus inside the overlay while it is open, then hand it back.
+		const page = document.getElementById("smooth-wrapper");
+		page?.toggleAttribute("inert", open);
+		if (open) {
+			// The overlay turns visible on the timeline's first tick; focus after it.
+			const first = root.current?.querySelector<HTMLElement>("[data-nav-item]");
+			window.setTimeout(() => first?.focus(), 60);
+		} else if (wasOpen.current) {
+			toggle.current?.focus();
+		}
+		wasOpen.current = open;
+
 		if (!open) return;
 		const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
 		window.addEventListener("keydown", onKey);
@@ -109,6 +114,7 @@ export function Nav() {
 						<InstallMenu size="sm" align="end" className="hidden md:block" />
 
 						<button
+							ref={toggle}
 							type="button"
 							onClick={() => setOpen((v) => !v)}
 							aria-expanded={open}

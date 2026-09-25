@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { InstallMenu } from "#/components/ui/InstallMenu";
 import { PillLink } from "#/components/ui/PillLink";
 import { Shot } from "#/components/ui/Shot";
-import { EASE_OUT, gsap, MOTION_OK, useGSAP } from "#/lib/gsap";
+import { gsap, MOTION_OK, useGSAP } from "#/lib/gsap";
 import { LINKS, VARIANTS } from "#/lib/site";
 import { m } from "#/paraglide/messages";
 
@@ -19,23 +19,7 @@ export function Hero() {
 					desktop: boolean;
 				};
 				if (!motion) return;
-				// Tilt only on desktop; overlapping rotations fight touch targets on mobile.
-				const tilt = desktop ? -2 : 0;
-
-				gsap
-					.timeline({ defaults: { ease: EASE_OUT }, delay: 0.35 })
-					.to("[data-hero-line]", { y: 0, duration: 1.4, stagger: 0.1 })
-					.to(
-						"[data-hero-fade]",
-						{ y: 0, opacity: 1, duration: 1.2, stagger: 0.08 },
-						"-=1.0",
-					)
-					.to(
-						"[data-hero-shot]",
-						{ y: 0, opacity: 1, rotate: tilt, scale: 1, duration: 1.6 },
-						"-=1.2",
-					);
-
+				// The intro itself is CSS (styles.css) so it paints before hydration.
 				// The screenshot drifts and straightens as the page scrolls away.
 				gsap.to("[data-hero-parallax]", {
 					yPercent: desktop ? -12 : -4,
@@ -67,7 +51,11 @@ export function Hero() {
 						</span>
 					</span>
 					<span className="block overflow-hidden pb-2">
-						<span data-hero-line className="block text-fg-muted">
+						<span
+							data-hero-line
+							className="block text-fg-muted"
+							style={{ "--i": 1 } as React.CSSProperties}
+						>
 							{m.hero_title_b()}
 						</span>
 					</span>
@@ -80,7 +68,11 @@ export function Hero() {
 					{m.hero_body()}
 				</p>
 
-				<div data-hero-fade className="mt-10 flex flex-wrap items-center gap-3">
+				<div
+					data-hero-fade
+					className="mt-10 flex flex-wrap items-center gap-3"
+					style={{ "--i": 1 } as React.CSSProperties}
+				>
 					<InstallMenu />
 					<PillLink
 						href={LINKS.github}
