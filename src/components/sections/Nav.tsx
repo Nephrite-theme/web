@@ -61,6 +61,11 @@ export function Nav() {
 	const pathname = useRouterState({ select: (s) => s.location.pathname });
 	const onHome = pathname === "/";
 	const onPorts = pathname.startsWith("/ports");
+	const onPalette = pathname.startsWith("/palette");
+	const pages = [
+		{ to: "/ports" as const, label: m.nav_ports(), current: onPorts },
+		{ to: "/palette" as const, label: m.nav_palette(), current: onPalette },
+	];
 
 	useGSAP(
 		() => {
@@ -127,7 +132,7 @@ export function Nav() {
 			<header className="pointer-events-none fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-4 md:pt-6">
 				<nav
 					data-nav-pill
-					className="glass pointer-events-auto flex w-full max-w-[1040px] items-center justify-between gap-6 rounded-full md:grid md:grid-cols-[1fr_auto_1fr] bg-stone-900/70 p-2 ring-1 ring-hairline backdrop-blur-xl"
+					className="glass pointer-events-auto flex w-full max-w-[1040px] items-center justify-between gap-6 rounded-full lg:grid lg:grid-cols-[1fr_auto_1fr] bg-stone-900/70 p-2 ring-1 ring-hairline backdrop-blur-xl"
 				>
 					<SectionLink
 						id="top"
@@ -138,7 +143,7 @@ export function Nav() {
 						<Wordmark plain className="text-[22px]" />
 					</SectionLink>
 
-					<ul className="hidden items-center gap-1 md:flex">
+					<ul className="hidden items-center gap-1 lg:flex">
 						{sections.map((s) => (
 							<li key={s.id}>
 								<SectionLink
@@ -150,23 +155,25 @@ export function Nav() {
 								</SectionLink>
 							</li>
 						))}
-						<li>
-							<Link
-								to="/ports"
-								aria-current={onPorts ? "page" : undefined}
-								className={cn(
-									"rounded-full px-3.5 py-2 text-sm transition-colors duration-300 ease-fluid hover:text-fg",
-									onPorts ? "bg-white/[0.06] text-fg" : "text-fg-muted",
-								)}
-							>
-								{m.nav_ports()}
-							</Link>
-						</li>
+						{pages.map((p) => (
+							<li key={p.to}>
+								<Link
+									to={p.to}
+									aria-current={p.current ? "page" : undefined}
+									className={cn(
+										"rounded-full px-3.5 py-2 text-sm transition-colors duration-300 ease-fluid hover:text-fg",
+										p.current ? "bg-white/[0.06] text-fg" : "text-fg-muted",
+									)}
+								>
+									{p.label}
+								</Link>
+							</li>
+						))}
 					</ul>
 
 					<div className="flex items-center gap-2 justify-self-end">
-						<LocaleSwitcher className="hidden md:inline-flex" />
-						<InstallMenu size="sm" align="end" className="hidden md:block" />
+						<LocaleSwitcher className="hidden lg:inline-flex" />
+						<InstallMenu size="sm" align="end" className="hidden lg:block" />
 
 						<button
 							ref={toggle}
@@ -175,7 +182,7 @@ export function Nav() {
 							aria-expanded={open}
 							aria-controls="mobile-menu"
 							aria-label={open ? m.nav_menu_close() : m.nav_menu_open()}
-							className="relative z-50 flex size-10 items-center justify-center rounded-full bg-white/[0.05] ring-1 ring-hairline md:hidden"
+							className="relative z-50 flex size-10 items-center justify-center rounded-full bg-white/[0.05] ring-1 ring-hairline lg:hidden"
 						>
 							<span
 								className={cn(
@@ -199,7 +206,7 @@ export function Nav() {
 				data-nav-overlay
 				aria-hidden={!open}
 				inert={!open}
-				className="glass invisible fixed inset-0 z-30 flex flex-col justify-between bg-stone-950/85 px-6 pt-32 pb-10 backdrop-blur-2xl md:hidden"
+				className="glass invisible fixed inset-0 z-30 flex flex-col justify-between bg-stone-950/85 px-6 pt-32 pb-10 backdrop-blur-2xl lg:hidden"
 			>
 				<ul className="flex flex-col gap-2">
 					{sections.map((s) => (
@@ -215,17 +222,19 @@ export function Nav() {
 							</SectionLink>
 						</li>
 					))}
-					<li className="overflow-hidden">
-						<Link
-							data-nav-item
-							to="/ports"
-							aria-current={onPorts ? "page" : undefined}
-							onClick={() => setOpen(false)}
-							className="block py-1 text-5xl font-medium tracking-tight"
-						>
-							{m.nav_ports()}
-						</Link>
-					</li>
+					{pages.map((p) => (
+						<li key={p.to} className="overflow-hidden">
+							<Link
+								data-nav-item
+								to={p.to}
+								aria-current={p.current ? "page" : undefined}
+								onClick={() => setOpen(false)}
+								className="block py-1 text-5xl font-medium tracking-tight"
+							>
+								{p.label}
+							</Link>
+						</li>
+					))}
 				</ul>
 				<div className="flex flex-col items-start gap-6">
 					<div data-nav-item>

@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PaletteRouteImport } from './routes/palette'
 import { Route as PortsRouteImport } from './routes/ports'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaletteRoute = PaletteRouteImport.update({
+  id: '/palette',
+  path: '/palette',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortsRoute = PortsRouteImport.update({
@@ -25,27 +31,31 @@ const PortsRoute = PortsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/palette': typeof PaletteRoute
   '/ports': typeof PortsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/palette': typeof PaletteRoute
   '/ports': typeof PortsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/palette': typeof PaletteRoute
   '/ports': typeof PortsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ports'
+  fullPaths: '/' | '/palette' | '/ports'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ports'
-  id: '__root__' | '/' | '/ports'
+  to: '/' | '/palette' | '/ports'
+  id: '__root__' | '/' | '/palette' | '/ports'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PaletteRoute: typeof PaletteRoute
   PortsRoute: typeof PortsRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/palette': {
+      id: '/palette'
+      path: '/palette'
+      fullPath: '/palette'
+      preLoaderRoute: typeof PaletteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ports': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PaletteRoute: PaletteRoute,
   PortsRoute: PortsRoute,
 }
 export const routeTree = rootRouteImport

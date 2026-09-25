@@ -25,4 +25,16 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/ports"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/ports"/>
   </url>
+  <url>
+    <loc>https://getnephrite.dev/palette</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getnephrite.dev/palette"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/palette"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/palette"/>
+  </url>
+  <url>
+    <loc>https://getnephrite.dev/es/palette</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getnephrite.dev/palette"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/palette"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/palette"/>
+  </url>
 </urlset>
