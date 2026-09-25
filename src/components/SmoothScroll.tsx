@@ -67,6 +67,10 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 				});
 			}
 			history.replaceState(null, "", `#${id}`);
+			// Move keyboard focus with the jump so Tab continues from the section.
+			if (!target.hasAttribute("tabindex"))
+				target.setAttribute("tabindex", "-1");
+			target.focus({ preventScroll: true });
 		};
 		document.addEventListener("click", onClick);
 		return () => document.removeEventListener("click", onClick);

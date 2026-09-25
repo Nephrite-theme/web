@@ -18,6 +18,7 @@ export function InstallMenu({
 }) {
 	const [open, setOpen] = useState(false);
 	const root = useRef<HTMLDivElement>(null);
+	const button = useRef<HTMLButtonElement>(null);
 	const menuId = useId();
 
 	useEffect(() => {
@@ -25,18 +26,29 @@ export function InstallMenu({
 		const onPointer = (e: PointerEvent) => {
 			if (!root.current?.contains(e.target as Node)) setOpen(false);
 		};
-		const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+		// Escape closes and returns focus to the trigger; tabbing away closes too.
+		const onKey = (e: KeyboardEvent) => {
+			if (e.key !== "Escape") return;
+			setOpen(false);
+			button.current?.focus();
+		};
+		const onFocus = (e: FocusEvent) => {
+			if (!root.current?.contains(e.target as Node)) setOpen(false);
+		};
+		document.addEventListener("focusin", onFocus);
 		document.addEventListener("pointerdown", onPointer);
 		document.addEventListener("keydown", onKey);
 		return () => {
 			document.removeEventListener("pointerdown", onPointer);
 			document.removeEventListener("keydown", onKey);
+			document.removeEventListener("focusin", onFocus);
 		};
 	}, [open]);
 
 	return (
 		<div ref={root} className={cn("relative", className)}>
 			<button
+				ref={button}
 				type="button"
 				aria-expanded={open}
 				aria-controls={menuId}
