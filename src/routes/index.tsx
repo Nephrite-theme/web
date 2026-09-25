@@ -3,6 +3,7 @@ import { Reveals } from "#/components/Reveals";
 import { Details } from "#/components/sections/Details";
 import { Hero } from "#/components/sections/Hero";
 import { Nav } from "#/components/sections/Nav";
+import { Roadmap } from "#/components/sections/Roadmap";
 import { Variants } from "#/components/sections/Variants";
 
 export const Route = createFileRoute("/")({ component: Home });
@@ -17,6 +18,7 @@ function Home() {
 				<Hero />
 				<Variants />
 				<Details />
+				<Roadmap />
 			</main>
 			<Reveals />
 		</>
