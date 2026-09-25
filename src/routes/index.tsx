@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Reveals } from "#/components/Reveals";
+import { SmoothScroll } from "#/components/SmoothScroll";
 import { Closing, Footer } from "#/components/sections/Closing";
 import { Details } from "#/components/sections/Details";
 import { Hero } from "#/components/sections/Hero";
@@ -15,15 +16,17 @@ function Home() {
 			<div aria-hidden className="ambient" />
 			<div aria-hidden className="grain" />
 			<Nav />
-			<main className="relative">
-				<Hero />
-				<Variants />
-				<Details />
-				<Roadmap />
-				<Closing />
-			</main>
-			<Footer />
-			<Reveals />
+			<SmoothScroll>
+				<main className="relative">
+					<Hero />
+					<Variants />
+					<Details />
+					<Roadmap />
+					<Closing />
+				</main>
+				<Footer />
+				<Reveals />
+			</SmoothScroll>
 		</>
 	);
 }
