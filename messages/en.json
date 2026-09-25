@@ -106,5 +106,7 @@
   "palette_export_body": "Copy the flavor as CSS variables or JSON and start a port.",
   "palette_copy_css": "Copy CSS",
   "palette_copy_json": "Copy JSON",
-  "palette_ports_cta": "See the ports"
+  "palette_ports_cta": "See the ports",
+  "palette_copied_short": "Copied",
+  "palette_copy_failed": "Couldn't copy. Select the value and copy it manually."
 }

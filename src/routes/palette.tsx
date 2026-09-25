@@ -1,6 +1,11 @@
-import { CopyIcon } from "@solar-icons/react/linear";
+import {
+	CheckCircleIcon,
+	CopyIcon,
+	DangerCircleIcon,
+} from "@solar-icons/react/linear";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { type KeyboardEvent, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { PageShell } from "#/components/PageShell";
 import { PillIcon, pillClass } from "#/components/ui/PillLink";
 import { pageHead } from "#/lib/head";
@@ -43,23 +48,103 @@ const FLAVOR_DESC: Record<FlavorKey, () => string> = {
 	mint: () => m.flavor_mint_desc(),
 };
 
-// Copies to the clipboard and exposes the last copied value for a live region.
+type CopyState = {
+	id: string;
+	label: string;
+	swatch?: string;
+	ok: boolean;
+	// Bumps on every copy so repeating the same color replays the feedback.
+	nonce: number;
+};
+
+type CopyOptions = { id: string; label?: string; swatch?: string };
+
+// Copies to the clipboard and keeps the result briefly for visible feedback.
 function useCopy() {
-	const [copied, setCopied] = useState<string | null>(null);
+	const [state, setState] = useState<CopyState | null>(null);
 	const timer = useRef<number>(undefined);
 	useEffect(() => () => window.clearTimeout(timer.current), []);
 
-	const copy = async (text: string, label = text) => {
+	const copy = async (
+		text: string,
+		{ id, label = text, swatch }: CopyOptions,
+	) => {
+		let ok = true;
 		try {
 			await navigator.clipboard.writeText(text);
-			setCopied(label);
-			window.clearTimeout(timer.current);
-			timer.current = window.setTimeout(() => setCopied(null), 1800);
 		} catch {
-			// Clipboard can be blocked (insecure context, permissions); fail quietly.
+			// Blocked clipboard (insecure context, permissions): say so instead.
+			ok = false;
 		}
+		setState((prev) => ({
+			id,
+			label,
+			swatch,
+			ok,
+			nonce: (prev?.nonce ?? 0) + 1,
+		}));
+		window.clearTimeout(timer.current);
+		timer.current = window.setTimeout(() => setState(null), ok ? 1800 : 3200);
 	};
-	return { copied, copy };
+	return { copied: state, copy };
+}
+
+function isCopied(state: CopyState | null, id: string) {
+	return Boolean(state?.ok && state.id === id);
+}
+
+// Readable ink for a check mark drawn on top of a swatch.
+function inkOn(hex: string) {
+	const [r, g, b] = [1, 3, 5].map((i) =>
+		Number.parseInt(hex.slice(i, i + 2), 16),
+	);
+	return 0.299 * r + 0.587 * g + 0.114 * b > 150 ? "#0c130f" : "#ffffff";
+}
+
+// Floating confirmation. Portaled to <body> because the page content sits in a
+// transformed smooth-scroll layer, where position: fixed would not stay put.
+function CopyToast({ state }: { state: CopyState | null }) {
+	const [mounted, setMounted] = useState(false);
+	const last = useRef<CopyState | null>(null);
+	useEffect(() => setMounted(true), []);
+	if (state) last.current = state;
+	const shown = last.current;
+	if (!mounted || !shown) return null;
+
+	return createPortal(
+		<div
+			aria-hidden
+			className={cn(
+				"pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center px-4",
+				"transition-[opacity,translate] duration-500 ease-fluid",
+				state ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
+			)}
+		>
+			<div className="flex items-center gap-3 rounded-full bg-stone-850/95 py-2.5 pr-5 pl-3 text-sm text-fg shadow-[0_20px_50px_-20px_rgb(2_10_6/0.9)] ring-1 ring-hairline-strong backdrop-blur-xl">
+				{shown.ok ? (
+					<CheckCircleIcon size={20} strokeWidth={1.75} className="text-jade" />
+				) : (
+					<DangerCircleIcon
+						size={20}
+						strokeWidth={1.75}
+						className="text-[#ffa09c]"
+					/>
+				)}
+				{shown.ok && shown.swatch && (
+					<span
+						className="size-4 rounded-full ring-1 ring-white/20"
+						style={{ background: shown.swatch }}
+					/>
+				)}
+				<span>
+					{shown.ok
+						? m.palette_copied({ value: shown.label })
+						: m.palette_copy_failed()}
+				</span>
+			</div>
+		</div>,
+		document.body,
+	);
 }
 
 function PalettePage() {
@@ -172,6 +257,7 @@ function PalettePage() {
 								flavor={flavor}
 								keys={ACCENT_KEYS}
 								onCopy={copy}
+								copied={copied}
 								large
 							/>
 							<Swatches
@@ -179,6 +265,7 @@ function PalettePage() {
 								flavor={flavor}
 								keys={NEUTRAL_KEYS}
 								onCopy={copy}
+								copied={copied}
 							/>
 							<p className="text-sm" style={{ color: flavor.neutrals.subtext }}>
 								{m.palette_copy_hint()}
@@ -192,8 +279,13 @@ function PalettePage() {
 					</div>
 				</div>
 				<p aria-live="polite" className="sr-only">
-					{copied ? m.palette_copied({ value: copied }) : ""}
+					{copied
+						? copied.ok
+							? m.palette_copied({ value: copied.label })
+							: m.palette_copy_failed()
+						: ""}
 				</p>
+				<CopyToast state={copied} />
 			</section>
 
 			<section className="mx-auto w-full max-w-[1400px] px-4 pb-28 md:px-8 md:pb-40">
@@ -208,22 +300,52 @@ function PalettePage() {
 						<div className="flex flex-wrap gap-3">
 							<button
 								type="button"
-								onClick={() => copy(toCss(flavor), `CSS ${flavor.name}`)}
+								onClick={() =>
+									copy(toCss(flavor), {
+										id: "css",
+										label: `CSS · ${flavor.name}`,
+									})
+								}
 								className={pillClass("primary", "md")}
 							>
-								<span>{m.palette_copy_css()}</span>
+								<span>
+									{isCopied(copied, "css")
+										? m.palette_copied_short()
+										: m.palette_copy_css()}
+								</span>
 								<PillIcon variant="primary" size="md">
-									<CopyIcon size={17} strokeWidth={1.75} />
+									{isCopied(copied, "css") ? (
+										<CheckCircleIcon size={17} strokeWidth={1.75} />
+									) : (
+										<CopyIcon size={17} strokeWidth={1.75} />
+									)}
 								</PillIcon>
 							</button>
 							<button
 								type="button"
-								onClick={() => copy(toJson(flavor), `JSON ${flavor.name}`)}
+								onClick={() =>
+									copy(toJson(flavor), {
+										id: "json",
+										label: `JSON · ${flavor.name}`,
+									})
+								}
 								className={pillClass("ghost", "md")}
 							>
-								<span>{m.palette_copy_json()}</span>
+								<span>
+									{isCopied(copied, "json")
+										? m.palette_copied_short()
+										: m.palette_copy_json()}
+								</span>
 								<PillIcon variant="ghost" size="md">
-									<CopyIcon size={17} strokeWidth={1.75} />
+									{isCopied(copied, "json") ? (
+										<CheckCircleIcon
+											size={17}
+											strokeWidth={1.75}
+											className="text-jade"
+										/>
+									) : (
+										<CopyIcon size={17} strokeWidth={1.75} />
+									)}
 								</PillIcon>
 							</button>
 						</div>
@@ -250,12 +372,14 @@ function Swatches({
 	flavor,
 	keys,
 	onCopy,
+	copied,
 	large,
 }: {
 	title: string;
 	flavor: Flavor;
 	keys: readonly (AccentKey | NeutralKey)[];
-	onCopy: (text: string) => void;
+	onCopy: (text: string, opts: CopyOptions) => void;
+	copied: CopyState | null;
 	large?: boolean;
 }) {
 	return (
@@ -274,25 +398,40 @@ function Swatches({
 			>
 				{keys.map((k) => {
 					const hex = color(flavor, k);
+					const id = `${flavor.key}-${k}`;
+					const done = isCopied(copied, id);
 					return (
 						<li key={k}>
 							<button
 								type="button"
-								onClick={() => onCopy(hex)}
+								onClick={() => onCopy(hex, { id, swatch: hex })}
 								aria-label={`${k} ${hex}`}
 								className="group flex w-full flex-col gap-2 rounded-2xl text-left"
 							>
 								<span
 									aria-hidden
 									className={cn(
-										"w-full rounded-2xl transition-transform duration-500 ease-fluid group-hover:-translate-y-0.5 group-active:scale-[0.97]",
+										"flex w-full items-center justify-center rounded-2xl transition-transform duration-500 ease-fluid group-hover:-translate-y-0.5 group-active:scale-[0.97]",
 										large ? "h-20" : "h-12",
 									)}
 									style={{
 										background: hex,
 										boxShadow: `inset 0 0 0 1px ${flavor.dark ? "rgb(255 255 255 / 0.08)" : "rgb(0 0 0 / 0.08)"}`,
 									}}
-								/>
+								>
+									{/* Check mark confirms the copy right where the click happened. */}
+									<span
+										key={done ? copied?.nonce : "idle"}
+										className={cn(
+											"flex items-center gap-1.5 text-xs font-medium",
+											done ? "copy-pop" : "opacity-0",
+										)}
+										style={{ color: inkOn(hex) }}
+									>
+										<CheckCircleIcon size={large ? 22 : 16} strokeWidth={2} />
+										{large && m.palette_copied_short()}
+									</span>
+								</span>
 								{large ? (
 									<span aria-hidden className="flex flex-col px-1">
 										<span className="text-sm font-medium capitalize">{k}</span>

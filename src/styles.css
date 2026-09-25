@@ -256,6 +256,20 @@
 	}
 }
 
+/* Copy confirmation on a palette swatch. */
+@media (prefers-reduced-motion: no-preference) {
+	.copy-pop {
+		animation: copy-pop 0.45s var(--ease-out-expo) both;
+	}
+}
+
+@keyframes copy-pop {
+	from {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+}
+
 @media (prefers-reduced-transparency: reduce) {
 	.glass {
 		background: var(--stone-850) !important;

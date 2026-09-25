@@ -106,5 +106,7 @@
   "palette_export_body": "Copia el sabor como variables CSS o JSON y empieza un port.",
   "palette_copy_css": "Copiar CSS",
   "palette_copy_json": "Copiar JSON",
-  "palette_ports_cta": "Ver las apps"
+  "palette_ports_cta": "Ver las apps",
+  "palette_copied_short": "Copiado",
+  "palette_copy_failed": "No se pudo copiar. Selecciona el valor y cópialo a mano."
 }
