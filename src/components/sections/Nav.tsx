@@ -88,7 +88,7 @@ export function Nav() {
 						aria-label={m.nav_home()}
 						className="shrink-0 justify-self-start pl-3"
 					>
-						<Wordmark className="text-[22px]" />
+						<Wordmark plain className="text-[22px]" />
 					</a>
 
 					<ul className="hidden items-center gap-1 md:flex">

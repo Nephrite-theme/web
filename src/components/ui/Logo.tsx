@@ -57,17 +57,24 @@ export function Mark({
 	);
 }
 
-// "nephrite" set in Geist with a jade pebble in place of the i's dot.
-export function Wordmark({ className }: { className?: string }) {
+// "nephrite" set in Geist, with a jade pebble in place of the i's dot;
+// `plain` keeps the regular i for small or busy placements like the nav.
+export function Wordmark({
+	className,
+	plain,
+}: {
+	className?: string;
+	plain?: boolean;
+}) {
+	const base = cn(
+		"inline-flex items-baseline font-semibold leading-none tracking-[-0.05em]",
+		className,
+	);
+
+	if (plain) return <span className={base}>nephrite</span>;
+
 	return (
-		<span
-			role="img"
-			aria-label="Nephrite"
-			className={cn(
-				"inline-flex items-baseline font-semibold leading-none tracking-[-0.05em]",
-				className,
-			)}
-		>
+		<span role="img" aria-label="Nephrite" className={base}>
 			<span aria-hidden>nephr</span>
 			<span aria-hidden className="relative inline-block">
 				ı
