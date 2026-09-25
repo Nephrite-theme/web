@@ -31,7 +31,25 @@ export function Closing() {
 					data-reveal
 					className="mt-6 max-w-[30rem] text-lg leading-relaxed text-fg-muted"
 				>
-					{m.closing_body()}
+					{m.closing_body()} {m.closing_follow()}{" "}
+					<a
+						href={LINKS.github}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="text-fg underline decoration-jade/50 underline-offset-4 transition-colors duration-300 ease-fluid hover:decoration-jade"
+					>
+						GitHub
+					</a>{" "}
+					{m.closing_or()}{" "}
+					<a
+						href={LINKS.x}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="text-fg underline decoration-jade/50 underline-offset-4 transition-colors duration-300 ease-fluid hover:decoration-jade"
+					>
+						X
+					</a>
+					.
 				</p>
 				<div data-reveal className="mt-10">
 					<InstallMenu align="center" />
