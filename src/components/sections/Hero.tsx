@@ -13,7 +13,7 @@ export function Hero() {
 	useGSAP(
 		() => {
 			const mm = gsap.matchMedia();
-			mm.add({ motion: MOTION_OK, desktop: "(min-width: 768px)" }, (ctx) => {
+			mm.add({ motion: MOTION_OK, desktop: "(min-width: 1024px)" }, (ctx) => {
 				const { motion, desktop } = ctx.conditions as {
 					motion: boolean;
 					desktop: boolean;

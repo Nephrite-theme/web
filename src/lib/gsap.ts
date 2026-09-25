@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 if (typeof window !== "undefined") {
 	gsap.registerPlugin(ScrollTrigger, useGSAP);
+	// Dev-only handle for inspecting timelines from the console.
+	if (import.meta.env.DEV) Object.assign(window, { gsap, ScrollTrigger });
 }
 
 // Shared easing so every tween on the page carries the same weight.

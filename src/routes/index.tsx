@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Reveals } from "#/components/Reveals";
 import { Hero } from "#/components/sections/Hero";
 import { Nav } from "#/components/sections/Nav";
+import { Variants } from "#/components/sections/Variants";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -12,7 +14,9 @@ function Home() {
 			<Nav />
 			<main className="relative">
 				<Hero />
+				<Variants />
 			</main>
+			<Reveals />
 		</>
 	);
 }
