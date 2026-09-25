@@ -51,6 +51,16 @@ export const Route = createRootRoute({
 					offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 					publisher: { "@id": `${LINKS.site}/#org` },
 				})),
+				...VARIANTS.map((v) => ({
+					"@type": "SoftwareApplication",
+					name: `${v.name} for Firefox`,
+					description: v.description(),
+					url: v.firefox,
+					applicationCategory: "BrowserApplication",
+					operatingSystem: "Firefox",
+					offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+					publisher: { "@id": `${LINKS.site}/#org` },
+				})),
 			],
 		};
 

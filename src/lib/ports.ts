@@ -55,7 +55,7 @@ export const PORTS: Port[] = [
 		repo: `${LINKS.github}/firefox`,
 		installs: VARIANTS.map((v) => ({
 			name: v.name,
-			href: `https://addons.mozilla.org/firefox/addon/nephrite-${v.key}/`,
+			href: v.firefox,
 			variant: v,
 		})),
 	},

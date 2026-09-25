@@ -2,6 +2,7 @@ import { type KeyboardEvent, useRef, useState } from "react";
 import { PillLink } from "#/components/ui/PillLink";
 import { Shot } from "#/components/ui/Shot";
 import { Swatch } from "#/components/ui/Swatch";
+import { BROWSER_COPY, installUrl, useBrowser } from "#/lib/browser";
 import { EASE_OUT, gsap, MOTION_OK, useGSAP } from "#/lib/gsap";
 import { VARIANTS } from "#/lib/site";
 import { cn } from "#/lib/utils";
@@ -12,6 +13,7 @@ export function Variants() {
 	const root = useRef<HTMLElement>(null);
 	const tabs = useRef<(HTMLButtonElement | null)[]>([]);
 	const variant = VARIANTS[active];
+	const browser = useBrowser();
 
 	// Crossfade the stacked screenshots and re-enter the info panel on change.
 	useGSAP(
@@ -157,7 +159,9 @@ export function Variants() {
 						</dl>
 
 						<div>
-							<PillLink href={variant.store}>{m.cta_add()}</PillLink>
+							<PillLink href={installUrl(variant, browser)}>
+								{BROWSER_COPY[browser].add()}
+							</PillLink>
 						</div>
 					</div>
 				</div>

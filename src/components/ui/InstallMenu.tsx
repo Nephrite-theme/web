@@ -2,11 +2,17 @@ import { AltArrowDownIcon, ArrowRightUpIcon } from "@solar-icons/react/linear";
 import { useEffect, useId, useRef, useState } from "react";
 import { PillIcon, pillClass } from "#/components/ui/PillLink";
 import { Swatch } from "#/components/ui/Swatch";
+import {
+	BROWSER_COPY,
+	installUrl,
+	setBrowser,
+	useBrowser,
+} from "#/lib/browser";
 import { VARIANTS } from "#/lib/site";
 import { cn } from "#/lib/utils";
-import { m } from "#/paraglide/messages";
 
-// "Get it for Chrome" opens a picker: each variant is its own Web Store listing.
+// "Get it for <browser>" opens a picker: each variant is its own store listing.
+// The browser is detected on the client; the menu lets people switch it.
 export function InstallMenu({
 	size = "md",
 	align = "start",
@@ -20,6 +26,8 @@ export function InstallMenu({
 	const root = useRef<HTMLDivElement>(null);
 	const button = useRef<HTMLButtonElement>(null);
 	const menuId = useId();
+	const browser = useBrowser();
+	const other = browser === "chrome" ? "firefox" : "chrome";
 
 	useEffect(() => {
 		if (!open) return;
@@ -55,7 +63,7 @@ export function InstallMenu({
 				onClick={() => setOpen((v) => !v)}
 				className={pillClass("primary", size)}
 			>
-				<span>{m.cta_chrome()}</span>
+				<span>{BROWSER_COPY[browser].cta()}</span>
 				<PillIcon variant="primary" size={size}>
 					<AltArrowDownIcon
 						size={size === "md" ? 18 : 15}
@@ -87,7 +95,7 @@ export function InstallMenu({
 						{VARIANTS.map((v) => (
 							<li key={v.key}>
 								<a
-									href={v.store}
+									href={installUrl(v, browser)}
 									target="_blank"
 									rel="noopener noreferrer"
 									onClick={() => setOpen(false)}
@@ -111,6 +119,15 @@ export function InstallMenu({
 								</a>
 							</li>
 						))}
+						<li className="mt-1 border-t border-hairline px-3 pt-2.5 pb-1.5">
+							<button
+								type="button"
+								onClick={() => setBrowser(other)}
+								className="text-xs text-fg-muted underline decoration-hairline-strong underline-offset-4 transition-colors duration-300 ease-fluid hover:text-fg hover:decoration-jade"
+							>
+								{BROWSER_COPY[other].switchTo()}
+							</button>
+						</li>
 					</ul>
 				</div>
 			</div>

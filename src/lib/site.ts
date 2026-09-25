@@ -11,7 +11,10 @@ export type Variant = {
 	key: string;
 	name: string;
 	description: () => string;
+	// Chrome Web Store listing (also used by Edge, Brave and other Chromium browsers).
 	store: string;
+	// Firefox Add-ons listing.
+	firefox: string;
 	frame: string;
 	toolbar: string;
 	tabText: string;
@@ -40,6 +43,7 @@ export const VARIANTS: Variant[] = [
 		description: () => m.flavor_forest_desc(),
 		store:
 			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-for/efhfempmenojdgamociancffkcbncffp",
+		firefox: "https://addons.mozilla.org/firefox/addon/nephrite-forest/",
 		...chromeColors("forest"),
 		shot: "/shots/forest.webp",
 	},
@@ -49,6 +53,7 @@ export const VARIANTS: Variant[] = [
 		description: () => m.flavor_jade_desc(),
 		store:
 			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-jad/ijmbncbgabefgapchogbdnhfgbiiimcm",
+		firefox: "https://addons.mozilla.org/firefox/addon/nephrite-jade/",
 		...chromeColors("jade"),
 		shot: "/shots/jade.webp",
 	},
@@ -58,6 +63,7 @@ export const VARIANTS: Variant[] = [
 		description: () => m.flavor_mint_desc(),
 		store:
 			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-min/ogfckpiocojbdmefjoogcmjmgfofijpg",
+		firefox: "https://addons.mozilla.org/firefox/addon/nephrite-mint/",
 		...chromeColors("mint"),
 		shot: "/shots/mint.webp",
 	},

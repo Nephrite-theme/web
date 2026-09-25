@@ -4,6 +4,7 @@ import LocaleSwitcher from "#/components/LocaleSwitcher";
 import { InstallMenu } from "#/components/ui/InstallMenu";
 import { Wordmark } from "#/components/ui/Logo";
 import { Swatch } from "#/components/ui/Swatch";
+import { BROWSER_COPY, installUrl, useBrowser } from "#/lib/browser";
 import { EASE_OUT, gsap, MOTION_OK, ScrollSmoother, useGSAP } from "#/lib/gsap";
 import { VARIANTS } from "#/lib/site";
 import { cn } from "#/lib/utils";
@@ -60,6 +61,7 @@ export function Nav() {
 	const wasOpen = useRef(false);
 	const pathname = useRouterState({ select: (s) => s.location.pathname });
 	const onHome = pathname === "/";
+	const browser = useBrowser();
 	const onPorts = pathname.startsWith("/ports");
 	const onPalette = pathname.startsWith("/palette");
 	const pages = [
@@ -244,14 +246,16 @@ export function Nav() {
 						{VARIANTS.map((v) => (
 							<li key={v.key} data-nav-item>
 								<a
-									href={v.store}
+									href={installUrl(v, browser)}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="flex items-center gap-3 rounded-2xl bg-white/[0.04] px-4 py-3 ring-1 ring-hairline"
 								>
 									<Swatch variant={v} className="size-6" />
 									<span className="flex-1 text-sm font-medium">{v.name}</span>
-									<span className="text-xs text-jade-soft">{m.cta_add()}</span>
+									<span className="text-xs text-jade-soft">
+										{BROWSER_COPY[browser].add()}
+									</span>
 								</a>
 							</li>
 						))}
