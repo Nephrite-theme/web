@@ -3,7 +3,7 @@ import LocaleSwitcher from "#/components/LocaleSwitcher";
 import { InstallMenu } from "#/components/ui/InstallMenu";
 import { Logo } from "#/components/ui/Logo";
 import { Swatch } from "#/components/ui/Swatch";
-import { EASE_OUT, gsap, MOTION_OK, useGSAP } from "#/lib/gsap";
+import { EASE_OUT, gsap, MOTION_OK, ScrollSmoother, useGSAP } from "#/lib/gsap";
 import { VARIANTS } from "#/lib/site";
 import { cn } from "#/lib/utils";
 import { m } from "#/paraglide/messages";
@@ -66,7 +66,10 @@ export function Nav() {
 		if (open) tl.current.timeScale(1).play();
 		else tl.current.timeScale(1.6).reverse();
 
-		document.documentElement.style.overflow = open ? "hidden" : "";
+		// Freeze page scroll behind the overlay (smoother when active, else native).
+		const smoother = ScrollSmoother.get();
+		if (smoother) smoother.paused(open);
+		else document.documentElement.style.overflow = open ? "hidden" : "";
 		if (!open) return;
 		const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
 		window.addEventListener("keydown", onKey);
@@ -78,9 +81,13 @@ export function Nav() {
 			<header className="pointer-events-none fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-4 md:pt-6">
 				<nav
 					data-nav-pill
-					className="glass pointer-events-auto flex w-full max-w-[960px] items-center justify-between gap-6 rounded-full bg-stone-900/70 py-2 pr-2 pl-5 ring-1 ring-hairline backdrop-blur-xl"
+					className="glass pointer-events-auto flex w-full max-w-[1040px] items-center justify-between gap-6 rounded-full md:grid md:grid-cols-[1fr_auto_1fr] bg-stone-900/70 p-2 ring-1 ring-hairline backdrop-blur-xl"
 				>
-					<a href="#top" aria-label={m.nav_home()} className="shrink-0">
+					<a
+						href="#top"
+						aria-label={m.nav_home()}
+						className="shrink-0 justify-self-start pl-3"
+					>
 						<Logo />
 					</a>
 
@@ -97,7 +104,7 @@ export function Nav() {
 						))}
 					</ul>
 
-					<div className="flex items-center gap-2">
+					<div className="flex items-center gap-2 justify-self-end">
 						<LocaleSwitcher className="hidden md:inline-flex" />
 						<InstallMenu size="sm" align="end" className="hidden md:block" />
 
