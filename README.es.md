@@ -22,7 +22,8 @@ Una landing de una sola página, renderizada en el servidor, que presenta cada v
 
 ## Características
 
-- **Selector de variantes.** Cada variante (Forest, Mint, Jade) con sus colores reales del manifiesto y enlace directo a la tienda. Agregar una es solo un cambio de datos.
+- **Selector de variantes.** Cada variante (Forest, Jade, Mint) con los colores de la paleta y enlace directo a la tienda. Agregar una es solo un cambio de datos.
+- **Página de la paleta.** La paleta Nephrite en `/palette`, con muestras que se copian, vistas de editor y terminal, y exportación a CSS o JSON.
 - **Bilingüe.** Inglés en `/` y español en `/es/`, con metadatos traducidos y alternativas `hreflang`.
 - **Movimiento con mesura.** ScrollSmoother de GSAP, roadmap horizontal fijado y apariciones al hacer scroll, todo desactivado con `prefers-reduced-motion`.
 - **Listo para SEO.** URLs canónicas, tarjetas Open Graph y X, JSON-LD de la organización y de cada ficha, `robots.txt` y `sitemap.xml`.
@@ -92,8 +93,8 @@ src/
 
 ### Agregar una variante del tema
 
-1. Agrega una entrada a `VARIANTS` en [`src/lib/site.ts`](src/lib/site.ts) con su nombre, URL de la Web Store y colores del manifiesto.
-2. Agrega un mensaje `variant_<key>_desc` en cada archivo de [`messages/`](messages).
+1. Agrega el sabor en [`src/lib/palette.ts`](src/lib/palette.ts) (igual que en [Nephrite-theme/palette](https://github.com/Nephrite-theme/palette)) con un mensaje `flavor_<key>_desc` en cada archivo de [`messages/`](messages).
+2. Agrega una entrada a `VARIANTS` en [`src/lib/site.ts`](src/lib/site.ts) con su nombre y URL de la Web Store; los colores salen del sabor.
 
 Las pestañas, el menú de instalación, el menú móvil y los datos estructurados la toman solos.
 

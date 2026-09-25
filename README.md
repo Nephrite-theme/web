@@ -22,7 +22,8 @@ A single, server-rendered landing page that presents every Nephrite variant, lin
 
 ## Features
 
-- **Variant picker.** Every variant (Forest, Mint, Jade) with its real manifest colors and a direct Web Store link. Adding one is a data change.
+- **Variant picker.** Every variant (Forest, Jade, Mint) with its palette colors and a direct Web Store link. Adding one is a data change.
+- **Palette page.** The Nephrite palette at `/palette`, with copyable swatches, editor and terminal previews, and CSS or JSON export.
 - **Bilingual.** English at `/`, Spanish at `/es/`, with localized metadata and `hreflang` alternates.
 - **Motion with restraint.** GSAP ScrollSmoother, a pinned horizontal roadmap and scroll reveals, all disabled under `prefers-reduced-motion`.
 - **SEO ready.** Canonical URLs, Open Graph and X cards, JSON-LD for the organization and each listing, `robots.txt` and `sitemap.xml`.
@@ -92,8 +93,8 @@ src/
 
 ### Add a theme variant
 
-1. Append an entry to `VARIANTS` in [`src/lib/site.ts`](src/lib/site.ts) with its name, Web Store URL and manifest colors.
-2. Add a `variant_<key>_desc` message to every file in [`messages/`](messages).
+1. Add the flavor to [`src/lib/palette.ts`](src/lib/palette.ts) (mirroring [Nephrite-theme/palette](https://github.com/Nephrite-theme/palette)) with a `flavor_<key>_desc` message in every file in [`messages/`](messages).
+2. Append an entry to `VARIANTS` in [`src/lib/site.ts`](src/lib/site.ts) with its name and Web Store URL; its colors come from the flavor.
 
 The tabs, install menu, mobile menu and structured data pick it up automatically.
 

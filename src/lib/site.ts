@@ -1,4 +1,5 @@
 import { m } from "#/paraglide/messages";
+import { FLAVORS, type Flavor, type FlavorKey } from "./palette";
 
 export const LINKS = {
 	github: "https://github.com/Nephrite-theme",
@@ -19,45 +20,48 @@ export type Variant = {
 	shot: string | null;
 };
 
-// Single source of truth for every published variant. To add one, append an
-// entry here and a `variant_{key}_desc` message in messages/*.json.
-// Colors come from each variant's Chrome theme manifest.
+// Single source of truth for every published variant. Colors come from the
+// palette flavor each Chrome theme is built from (frame = mantle, toolbar =
+// base, tab text = text), so the site always matches the published themes.
+const chromeColors = (key: FlavorKey) => {
+	const f = FLAVORS.find((flavor) => flavor.key === key) as Flavor;
+	return {
+		frame: f.neutrals.mantle,
+		toolbar: f.neutrals.base,
+		tabText: f.neutrals.text,
+		dark: f.dark,
+	};
+};
+
 export const VARIANTS: Variant[] = [
 	{
 		key: "forest",
 		name: "Nephrite Forest",
-		description: () => m.variant_forest_desc(),
+		description: () => m.flavor_forest_desc(),
 		store:
 			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-for/efhfempmenojdgamociancffkcbncffp",
-		frame: "#111F17",
-		toolbar: "#16291E",
-		tabText: "#FFFFFF",
-		dark: true,
+		...chromeColors("forest"),
 		shot: "/shots/forest.webp",
-	},
-	{
-		key: "mint",
-		name: "Nephrite Mint",
-		description: () => m.variant_mint_desc(),
-		store:
-			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-min/ogfckpiocojbdmefjoogcmjmgfofijpg",
-		frame: "#6BC4A8",
-		toolbar: "#ECFDF5",
-		tabText: "#111F17",
-		dark: false,
-		shot: "/shots/mint.webp",
 	},
 	{
 		key: "jade",
 		name: "Nephrite Jade",
-		description: () => m.variant_jade_desc(),
+		description: () => m.flavor_jade_desc(),
 		store:
 			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-jad/ijmbncbgabefgapchogbdnhfgbiiimcm",
-		frame: "#266E48",
-		toolbar: "#F0FDF4",
-		tabText: "#111F17",
-		dark: false,
-		shot: "/shots/jade.webp",
+		...chromeColors("jade"),
+		// TODO: recapture after the palette-based Jade (now dark) ships to the store.
+		shot: null,
+	},
+	{
+		key: "mint",
+		name: "Nephrite Mint",
+		description: () => m.flavor_mint_desc(),
+		store:
+			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-min/ogfckpiocojbdmefjoogcmjmgfofijpg",
+		...chromeColors("mint"),
+		// TODO: recapture after the palette-based Mint ships to the store.
+		shot: null,
 	},
 ];
 
