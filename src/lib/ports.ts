@@ -73,6 +73,10 @@ export const PORTS: Port[] = [
 				name: "Visual Studio Marketplace",
 				href: "https://marketplace.visualstudio.com/items?itemName=nephrite-theme.nephrite",
 			},
+			{
+				name: "Open VSX",
+				href: "https://open-vsx.org/extension/nephrite-theme/nephrite",
+			},
 		],
 	},
 	{
