@@ -1,9 +1,9 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { LINKS, localeUrl, VARIANTS } from "#/lib/site";
+import { LINKS, VARIANTS } from "#/lib/site";
 import { m } from "#/paraglide/messages";
-import { baseLocale, getLocale, locales } from "#/paraglide/runtime";
+import { getLocale, locales } from "#/paraglide/runtime";
 import appCss from "../styles.css?url";
 
 // Runs before paint: opts into GSAP initial states only when motion is welcome.
@@ -18,7 +18,6 @@ export const Route = createRootRoute({
 
 	head: () => {
 		const locale = getLocale();
-		const url = localeUrl(locale, baseLocale);
 		const ogImage = `${LINKS.site}/og-image.png`;
 		const ogLocale = { en: "en_US", es: "es_419" } as const;
 
@@ -59,12 +58,9 @@ export const Route = createRootRoute({
 			meta: [
 				{ charSet: "utf-8" },
 				{ name: "viewport", content: "width=device-width, initial-scale=1" },
-				{ title: m.meta_title() },
-				{ name: "description", content: m.meta_description() },
 				{ name: "theme-color", content: "#080d0a" },
 				{ property: "og:type", content: "website" },
 				{ property: "og:site_name", content: "Nephrite" },
-				{ property: "og:url", content: url },
 				{ property: "og:locale", content: ogLocale[locale] },
 				...locales
 					.filter((l) => l !== locale)
@@ -72,16 +68,12 @@ export const Route = createRootRoute({
 						property: "og:locale:alternate",
 						content: ogLocale[l],
 					})),
-				{ property: "og:title", content: m.meta_title() },
-				{ property: "og:description", content: m.meta_description() },
 				{ property: "og:image", content: ogImage },
 				{ property: "og:image:width", content: "1200" },
 				{ property: "og:image:height", content: "630" },
 				{ property: "og:image:alt", content: m.og_image_alt() },
 				{ name: "twitter:card", content: "summary_large_image" },
 				{ name: "twitter:site", content: "@NephriteTheme" },
-				{ name: "twitter:title", content: m.meta_title() },
-				{ name: "twitter:description", content: m.meta_description() },
 				{ name: "twitter:image", content: ogImage },
 				{ name: "twitter:image:alt", content: m.og_image_alt() },
 			],
@@ -95,17 +87,6 @@ export const Route = createRootRoute({
 					href: "/favicon-32.png",
 				},
 				{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-				{ rel: "canonical", href: url },
-				...locales.map((l) => ({
-					rel: "alternate",
-					hrefLang: l,
-					href: localeUrl(l, baseLocale),
-				})),
-				{
-					rel: "alternate",
-					hrefLang: "x-default",
-					href: localeUrl(baseLocale, baseLocale),
-				},
 			],
 			scripts: [
 				{ type: "application/ld+json", children: JSON.stringify(jsonLd) },

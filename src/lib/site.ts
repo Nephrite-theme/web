@@ -61,7 +61,9 @@ export const VARIANTS: Variant[] = [
 	},
 ];
 
-// Absolute URL of the landing page in a given locale (base locale lives at "/").
-export function localeUrl(locale: string, base = "en") {
-	return locale === base ? `${LINKS.site}/` : `${LINKS.site}/${locale}/`;
+// Absolute URL of a page in a given locale; the base locale has no prefix.
+// Mirrors Paraglide's URL strategy: "/" -> "/es/", "/ports" -> "/es/ports".
+export function localeUrl(locale: string, path = "/", base = "en") {
+	if (locale === base) return `${LINKS.site}${path}`;
+	return `${LINKS.site}/${locale}${path === "/" ? "/" : path}`;
 }
