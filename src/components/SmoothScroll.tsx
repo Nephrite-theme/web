@@ -33,6 +33,27 @@ function SmootherInit() {
 	return null;
 }
 
+// Scrolls to a section below the floating nav, with or without the glide.
+function scrollToTarget(target: HTMLElement, smooth: boolean) {
+	const smoother = ScrollSmoother.get();
+	if (smoother) {
+		// Passing a pinned element to scrollTo() makes ScrollSmoother measure
+		// it mid-pin and land at the wrong spot (0 or the page end). Resolve
+		// a number instead: the pin start for pinned sections, else offset().
+		const pin = ScrollTrigger.getAll().find((st) => st.pin === target);
+		const y = pin ? pin.start : smoother.offset(target, `top ${NAV_OFFSET}px`);
+		smoother.scrollTo(y, smooth);
+	} else {
+		target.scrollIntoView({
+			behavior:
+				smooth && window.matchMedia(MOTION_OK).matches ? "smooth" : "auto",
+		});
+	}
+	// Move keyboard focus with the jump so Tab continues from the section.
+	if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+	target.focus({ preventScroll: true });
+}
+
 // Inertial scrolling via GSAP ScrollSmoother. Fixed UI (nav, overlays, grain)
 // must live outside this wrapper, since the content layer is transformed.
 export function SmoothScroll({ children }: { children: ReactNode }) {
@@ -50,30 +71,27 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 			const target = document.getElementById(id);
 			if (!target) return;
 			e.preventDefault();
-
-			const smoother = ScrollSmoother.get();
-			if (smoother) {
-				// Passing a pinned element to scrollTo() makes ScrollSmoother measure
-				// it mid-pin and land at the wrong spot (0 or the page end). Resolve
-				// a number instead: the pin start for pinned sections, else offset().
-				const pin = ScrollTrigger.getAll().find((st) => st.pin === target);
-				const y = pin
-					? pin.start
-					: smoother.offset(target, `top ${NAV_OFFSET}px`);
-				smoother.scrollTo(y, true);
-			} else {
-				target.scrollIntoView({
-					behavior: window.matchMedia(MOTION_OK).matches ? "smooth" : "auto",
-				});
-			}
+			scrollToTarget(target, true);
 			history.replaceState(null, "", `#${id}`);
-			// Move keyboard focus with the jump so Tab continues from the section.
-			if (!target.hasAttribute("tabindex"))
-				target.setAttribute("tabindex", "-1");
-			target.focus({ preventScroll: true });
 		};
 		document.addEventListener("click", onClick);
-		return () => document.removeEventListener("click", onClick);
+
+		// Arriving with a hash (e.g. /#details from another page): the router's
+		// own hash scroll runs before the smoother and pinned sections exist, so
+		// jump once everything is measured.
+		const id = decodeURIComponent(window.location.hash.slice(1));
+		const target = id ? document.getElementById(id) : null;
+		const timer = target
+			? window.setTimeout(() => {
+					ScrollTrigger.refresh();
+					scrollToTarget(target, false);
+				}, 120)
+			: undefined;
+
+		return () => {
+			document.removeEventListener("click", onClick);
+			window.clearTimeout(timer);
+		};
 	}, []);
 
 	return (

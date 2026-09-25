@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import LocaleSwitcher from "#/components/LocaleSwitcher";
 import { InstallMenu } from "#/components/ui/InstallMenu";
 import { Wordmark } from "#/components/ui/Logo";
@@ -14,12 +15,52 @@ const sections = [
 	{ id: "roadmap", label: () => m.nav_roadmap() },
 ];
 
+// Home sections: a plain hash on the home page (SmoothScroll glides to it),
+// a route link to "/#id" from any other page.
+function SectionLink({
+	id,
+	onHome,
+	className,
+	onClick,
+	children,
+	...rest
+}: {
+	id: string;
+	onHome: boolean;
+	className?: string;
+	onClick?: () => void;
+	children: ReactNode;
+	"data-nav-item"?: boolean;
+}) {
+	if (onHome) {
+		return (
+			<a href={`#${id}`} className={className} onClick={onClick} {...rest}>
+				{children}
+			</a>
+		);
+	}
+	return (
+		<Link
+			to="/"
+			hash={id === "top" ? undefined : id}
+			className={className}
+			onClick={onClick}
+			{...rest}
+		>
+			{children}
+		</Link>
+	);
+}
+
 export function Nav() {
 	const [open, setOpen] = useState(false);
 	const root = useRef<HTMLDivElement>(null);
 	const tl = useRef<gsap.core.Timeline>(null);
 	const toggle = useRef<HTMLButtonElement>(null);
 	const wasOpen = useRef(false);
+	const pathname = useRouterState({ select: (s) => s.location.pathname });
+	const onHome = pathname === "/";
+	const onPorts = pathname.startsWith("/ports");
 
 	useGSAP(
 		() => {
@@ -88,25 +129,39 @@ export function Nav() {
 					data-nav-pill
 					className="glass pointer-events-auto flex w-full max-w-[1040px] items-center justify-between gap-6 rounded-full md:grid md:grid-cols-[1fr_auto_1fr] bg-stone-900/70 p-2 ring-1 ring-hairline backdrop-blur-xl"
 				>
-					<a
-						href="#top"
-						aria-label={m.nav_home()}
+					<SectionLink
+						id="top"
+						onHome={onHome}
 						className="shrink-0 justify-self-start pl-3"
 					>
+						<span className="sr-only">{m.nav_home()}</span>
 						<Wordmark plain className="text-[22px]" />
-					</a>
+					</SectionLink>
 
 					<ul className="hidden items-center gap-1 md:flex">
 						{sections.map((s) => (
 							<li key={s.id}>
-								<a
-									href={`#${s.id}`}
+								<SectionLink
+									id={s.id}
+									onHome={onHome}
 									className="rounded-full px-3.5 py-2 text-sm text-fg-muted transition-colors duration-300 ease-fluid hover:text-fg"
 								>
 									{s.label()}
-								</a>
+								</SectionLink>
 							</li>
 						))}
+						<li>
+							<Link
+								to="/ports"
+								aria-current={onPorts ? "page" : undefined}
+								className={cn(
+									"rounded-full px-3.5 py-2 text-sm transition-colors duration-300 ease-fluid hover:text-fg",
+									onPorts ? "bg-white/[0.06] text-fg" : "text-fg-muted",
+								)}
+							>
+								{m.nav_ports()}
+							</Link>
+						</li>
 					</ul>
 
 					<div className="flex items-center gap-2 justify-self-end">
@@ -149,16 +204,28 @@ export function Nav() {
 				<ul className="flex flex-col gap-2">
 					{sections.map((s) => (
 						<li key={s.id} className="overflow-hidden">
-							<a
+							<SectionLink
 								data-nav-item
-								href={`#${s.id}`}
+								id={s.id}
+								onHome={onHome}
 								onClick={() => setOpen(false)}
 								className="block py-1 text-5xl font-medium tracking-tight"
 							>
 								{s.label()}
-							</a>
+							</SectionLink>
 						</li>
 					))}
+					<li className="overflow-hidden">
+						<Link
+							data-nav-item
+							to="/ports"
+							aria-current={onPorts ? "page" : undefined}
+							onClick={() => setOpen(false)}
+							className="block py-1 text-5xl font-medium tracking-tight"
+						>
+							{m.nav_ports()}
+						</Link>
+					</li>
 				</ul>
 				<div className="flex flex-col items-start gap-6">
 					<div data-nav-item>

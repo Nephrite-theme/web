@@ -13,4 +13,16 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/"/>
   </url>
+  <url>
+    <loc>https://getnephrite.dev/ports</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getnephrite.dev/ports"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/ports"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/ports"/>
+  </url>
+  <url>
+    <loc>https://getnephrite.dev/es/ports</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getnephrite.dev/ports"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/ports"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/ports"/>
+  </url>
 </urlset>

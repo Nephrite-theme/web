@@ -1,71 +1,10 @@
-import {
-	SiFirefoxbrowser,
-	SiGooglechrome,
-	SiSpotify,
-} from "@icons-pack/react-simple-icons";
-import { CodeSquareIcon, FileTerminalIcon } from "@solar-icons/react/linear";
-import { type ComponentType, useRef } from "react";
+import { Link } from "@tanstack/react-router";
+import { useRef } from "react";
+import { PillIcon, pillClass } from "#/components/ui/PillLink";
 import { gsap, MOTION_OK, useGSAP } from "#/lib/gsap";
+import { PORTS, STATUS_LABEL } from "#/lib/ports";
 import { cn } from "#/lib/utils";
 import { m } from "#/paraglide/messages";
-
-type Status = "available" | "next" | "planned";
-
-type Item = {
-	key: string;
-	icon: ComponentType<{
-		size?: number;
-		className?: string;
-		"aria-hidden"?: boolean;
-	}>;
-	title: () => string;
-	body: () => string;
-	status: Status;
-};
-
-const ITEMS: Item[] = [
-	{
-		key: "chrome",
-		icon: SiGooglechrome,
-		title: () => m.rm_chrome_title(),
-		body: () => m.rm_chrome_body(),
-		status: "available",
-	},
-	{
-		key: "firefox",
-		icon: SiFirefoxbrowser,
-		title: () => m.rm_firefox_title(),
-		body: () => m.rm_firefox_body(),
-		status: "next",
-	},
-	{
-		key: "vscode",
-		icon: CodeSquareIcon,
-		title: () => m.rm_vscode_title(),
-		body: () => m.rm_vscode_body(),
-		status: "next",
-	},
-	{
-		key: "spotify",
-		icon: SiSpotify,
-		title: () => m.rm_spotify_title(),
-		body: () => m.rm_spotify_body(),
-		status: "planned",
-	},
-	{
-		key: "terminal",
-		icon: FileTerminalIcon,
-		title: () => m.rm_terminal_title(),
-		body: () => m.rm_terminal_body(),
-		status: "planned",
-	},
-];
-
-const statusLabel: Record<Status, () => string> = {
-	available: () => m.status_available(),
-	next: () => m.status_next(),
-	planned: () => m.status_planned(),
-};
 
 export function Roadmap() {
 	const wrap = useRef<HTMLElement>(null);
@@ -117,6 +56,16 @@ export function Roadmap() {
 				>
 					{m.roadmap_title()}
 				</h2>
+				<div data-reveal className="mt-8">
+					<Link to="/ports" className={pillClass("ghost", "sm")}>
+						<span>{m.roadmap_all()}</span>
+						<PillIcon
+							variant="ghost"
+							size="sm"
+							className="group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105"
+						/>
+					</Link>
+				</div>
 			</div>
 
 			{/* Native horizontal scroll is the fallback when the pan is off. */}
@@ -125,7 +74,7 @@ export function Roadmap() {
 					ref={track}
 					className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-4 px-4 md:grid-cols-2 md:px-8 lg:flex lg:max-w-none lg:gap-5 lg:pr-[max(2rem,calc((100vw-1400px)/2+2rem))] lg:pl-[max(2rem,calc((100vw-1400px)/2+2rem))]"
 				>
-					{ITEMS.map((item) => {
+					{PORTS.map((item) => {
 						const Icon = item.icon;
 						const live = item.status === "available";
 						return (
@@ -159,15 +108,15 @@ export function Roadmap() {
 													: "bg-white/[0.05] text-fg-muted ring-1 ring-hairline",
 											)}
 										>
-											{statusLabel[item.status]()}
+											{STATUS_LABEL[item.status]()}
 										</span>
 									</div>
 									<div className="mt-auto pt-16">
 										<h3 className="text-3xl font-semibold tracking-tight">
-											{item.title()}
+											{item.name()}
 										</h3>
 										<p className="mt-3 leading-relaxed text-fg-muted">
-											{item.body()}
+											{item.description()}
 										</p>
 									</div>
 								</div>
