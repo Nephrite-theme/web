@@ -1,3 +1,4 @@
+import { Mark } from "#/components/ui/Logo";
 import type { Variant } from "#/lib/site";
 import { cn } from "#/lib/utils";
 import { m } from "#/paraglide/messages";
@@ -39,7 +40,7 @@ export function Shot({
 				background: `linear-gradient(180deg, ${variant.frame} 0 12%, ${variant.toolbar} 12% 100%)`,
 			}}
 		>
-			<img src="/logo.png" alt="" className="size-20 opacity-30 md:size-28" />
+			<Mark className="size-20 opacity-40 md:size-28" />
 			<span
 				className="absolute bottom-3 left-1/2 max-w-[90%] -translate-x-1/2 truncate whitespace-nowrap rounded-full px-3 py-1 font-mono text-[10px] md:bottom-4 md:text-[11px]"
 				style={{

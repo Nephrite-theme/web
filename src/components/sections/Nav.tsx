@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import LocaleSwitcher from "#/components/LocaleSwitcher";
 import { InstallMenu } from "#/components/ui/InstallMenu";
-import { Logo } from "#/components/ui/Logo";
+import { Wordmark } from "#/components/ui/Logo";
 import { Swatch } from "#/components/ui/Swatch";
 import { EASE_OUT, gsap, MOTION_OK, ScrollSmoother, useGSAP } from "#/lib/gsap";
 import { VARIANTS } from "#/lib/site";
@@ -88,7 +88,7 @@ export function Nav() {
 						aria-label={m.nav_home()}
 						className="shrink-0 justify-self-start pl-3"
 					>
-						<Logo />
+						<Wordmark className="text-[22px]" />
 					</a>
 
 					<ul className="hidden items-center gap-1 md:flex">

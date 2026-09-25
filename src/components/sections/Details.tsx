@@ -1,6 +1,7 @@
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { EyeIcon, WindowFrameIcon } from "@solar-icons/react/linear";
 import { useRef } from "react";
+import { Mark } from "#/components/ui/Logo";
 import { PillLink } from "#/components/ui/PillLink";
 import { gsap, MOTION_OK, useGSAP } from "#/lib/gsap";
 import { LINKS } from "#/lib/site";
@@ -65,13 +66,12 @@ export function Details() {
 								"radial-gradient(80% 70% at 70% 30%, rgb(61 184 122 / 0.28), transparent 70%), linear-gradient(160deg, #13261b, #0c150f)",
 						}}
 					>
-						<img
+						<div
 							data-stone
-							src="/logo.png"
-							alt=""
-							loading="lazy"
-							className="pointer-events-none absolute -top-6 -right-10 w-[62%] max-w-[26rem] opacity-90 drop-shadow-[0_40px_60px_rgb(2_10_6/0.7)] md:top-4 md:right-4"
-						/>
+							className="pointer-events-none absolute -top-6 -right-10 w-[62%] max-w-[26rem] drop-shadow-[0_40px_60px_rgb(2_10_6/0.7)] md:top-4 md:right-4"
+						>
+							<Mark className="w-full" />
+						</div>
 						<div className="relative max-w-[26rem]">
 							<EyeIcon
 								size={26}

@@ -31,7 +31,7 @@ export const Route = createRootRoute({
 					"@id": `${LINKS.site}/#org`,
 					name: "Nephrite",
 					url: `${LINKS.site}/`,
-					logo: `${LINKS.site}/logo.png`,
+					logo: `${LINKS.site}/logo-512.png`,
 					sameAs: [LINKS.github, LINKS.x],
 				},
 				{
@@ -75,8 +75,8 @@ export const Route = createRootRoute({
 				{ property: "og:title", content: m.meta_title() },
 				{ property: "og:description", content: m.meta_description() },
 				{ property: "og:image", content: ogImage },
-				{ property: "og:image:width", content: "1792" },
-				{ property: "og:image:height", content: "592" },
+				{ property: "og:image:width", content: "1200" },
+				{ property: "og:image:height", content: "630" },
 				{ property: "og:image:alt", content: m.og_image_alt() },
 				{ name: "twitter:card", content: "summary_large_image" },
 				{ name: "twitter:site", content: "@NephriteTheme" },
@@ -87,8 +87,14 @@ export const Route = createRootRoute({
 			],
 			links: [
 				{ rel: "stylesheet", href: appCss },
-				{ rel: "icon", type: "image/png", href: "/logo.png" },
-				{ rel: "apple-touch-icon", href: "/logo.png" },
+				{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" },
+				{
+					rel: "icon",
+					type: "image/png",
+					sizes: "32x32",
+					href: "/favicon-32.png",
+				},
+				{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 				{ rel: "canonical", href: url },
 				...locales.map((l) => ({
 					rel: "alternate",
