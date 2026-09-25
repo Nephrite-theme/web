@@ -238,14 +238,19 @@ function PortCard({ port }: { port: Port }) {
 					{port.installs.length > 0 && (
 						<ul className="flex flex-wrap gap-2">
 							{port.installs.map((i) => (
-								<li key={i.href}>
+								<li key={i.name}>
 									<a
 										href={i.href}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="flex h-10 items-center gap-2 rounded-full bg-white/[0.05] pr-4 pl-2 text-sm font-medium ring-1 ring-hairline transition-colors duration-300 ease-fluid hover:bg-white/[0.09]"
+										className={cn(
+											"flex h-10 items-center gap-2 rounded-full bg-white/[0.05] pr-4 text-sm font-medium ring-1 ring-hairline transition-colors duration-300 ease-fluid hover:bg-white/[0.09]",
+											i.variant ? "pl-2" : "pl-4",
+										)}
 									>
-										<Swatch variant={i.variant} className="size-6" />
+										{i.variant && (
+											<Swatch variant={i.variant} className="size-6" />
+										)}
 										{i.name.replace("Nephrite ", "")}
 									</a>
 								</li>

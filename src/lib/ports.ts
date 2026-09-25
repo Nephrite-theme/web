@@ -24,8 +24,9 @@ export type Port = {
 	}>;
 	// Source repository, once one exists.
 	repo: string | null;
-	// Store listings, one per variant, once the port ships.
-	installs: { name: string; href: string; variant: Variant }[];
+	// Store listings once the port ships: one per variant, or a single listing
+	// (no variant) when one package bundles every flavor.
+	installs: { name: string; href: string; variant?: Variant }[];
 };
 
 // Every app Nephrite targets, shipped or not. The home roadmap and /ports both
@@ -64,10 +65,15 @@ export const PORTS: Port[] = [
 		name: () => m.rm_vscode_title(),
 		description: () => m.rm_vscode_body(),
 		category: "editor",
-		status: "next",
+		status: "available",
 		icon: CodeSquareIcon,
-		repo: null,
-		installs: [],
+		repo: `${LINKS.github}/vscode`,
+		installs: [
+			{
+				name: "Visual Studio Marketplace",
+				href: "https://marketplace.visualstudio.com/items?itemName=nephrite-theme.nephrite",
+			},
+		],
 	},
 	{
 		key: "spotify",
