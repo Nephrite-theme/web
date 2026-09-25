@@ -10,7 +10,7 @@ La landing de [Nephrite](https://getnephrite.dev), un tema jade sereno y sin des
 
 [![Licencia: MIT](https://img.shields.io/badge/licencia-MIT-3db87a)](LICENSE.es.md)
 [![TanStack Start](https://img.shields.io/badge/TanStack-Start-1f6b45)](https://tanstack.com/start)
-[![Deploy: Vercel](https://img.shields.io/badge/deploy-Vercel-0c130f)](https://vercel.com)
+[![Deploy: Netlify](https://img.shields.io/badge/deploy-Netlify-0c130f)](https://www.netlify.com)
 
 [Sitio](https://getnephrite.dev) · [Tema para Chrome](https://github.com/Nephrite-theme/chrome) · [Reportar un problema](https://github.com/Nephrite-theme/web/issues)
 
@@ -39,7 +39,7 @@ Una landing de una sola página, renderizada en el servidor, que presenta cada v
 | i18n | [Paraglide JS](https://inlang.com/m/gerre34r/library-inlang-paraglideJs) |
 | Íconos | [Solar Icons](https://solar-icons.vercel.app), [Simple Icons](https://simpleicons.org) para marcas |
 | Herramientas | TypeScript, [Biome](https://biomejs.dev), pnpm |
-| Hosting | [Vercel](https://vercel.com) a través de Nitro |
+| Hosting | [Netlify](https://www.netlify.com) con `@netlify/vite-plugin-tanstack-start` |
 
 ## Primeros pasos
 
@@ -111,4 +111,4 @@ Agrega el idioma a `locales` en [`project.inlang/settings.json`](project.inlang/
 
 ## Despliegue
 
-El sitio se despliega en Vercel. [`vercel.json`](vercel.json) define el preset de TanStack Start, así que basta con importar el repositorio. Cada push a `main` genera un deploy de producción.
+El sitio se despliega en Netlify. El plugin [`@netlify/vite-plugin-tanstack-start`](https://www.npmjs.com/package/@netlify/vite-plugin-tanstack-start) de `vite.config.ts` genera la función de renderizado en servidor y los archivos estáticos, y [`netlify.toml`](netlify.toml) define el comando de build, la versión de Node y los headers. Importa el repositorio en Netlify y cada push a `main` se despliega en producción.

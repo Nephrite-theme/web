@@ -1,0 +1,24 @@
+# Netlify reads the build output layout from @netlify/vite-plugin-tanstack-start
+# (see vite.config.ts); this file only sets the build command, Node version
+# and headers for static files.
+
+[build]
+  command = "pnpm build"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Same hardening headers the server sets on rendered pages (src/server.ts).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+
+# Hashed build assets never change, so cache them for a year.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

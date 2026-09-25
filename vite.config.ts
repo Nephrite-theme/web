@@ -1,11 +1,11 @@
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
+import netlify from "@netlify/vite-plugin-tanstack-start";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 
 import viteReact from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 
 const config = defineConfig({
@@ -17,21 +17,10 @@ const config = defineConfig({
 			outdir: "./src/paraglide",
 			strategy: ["url", "baseLocale"],
 		}),
-		nitro({
-			routeRules: {
-				"/**": {
-					headers: {
-						"X-Content-Type-Options": "nosniff",
-						"Referrer-Policy": "strict-origin-when-cross-origin",
-						"X-Frame-Options": "DENY",
-						"Permissions-Policy":
-							"camera=(), microphone=(), geolocation=(), interest-cohort=()",
-					},
-				},
-			},
-		}),
 		tailwindcss(),
 		tanstackStart(),
+		// Builds for Netlify (SSR function + static assets) and emulates it in dev.
+		netlify(),
 		viteReact(),
 	],
 });

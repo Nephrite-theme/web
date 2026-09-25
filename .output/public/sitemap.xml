@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://getnephrite.dev/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getnephrite.dev/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/"/>
+  </url>
+  <url>
+    <loc>https://getnephrite.dev/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getnephrite.dev/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/"/>
+  </url>
+  <url>
+    <loc>https://getnephrite.dev/ports</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getnephrite.dev/ports"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/ports"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/ports"/>
+  </url>
+  <url>
+    <loc>https://getnephrite.dev/es/ports</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getnephrite.dev/ports"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/ports"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/ports"/>
+  </url>
+  <url>
+    <loc>https://getnephrite.dev/palette</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getnephrite.dev/palette"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/palette"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/palette"/>
+  </url>
+  <url>
+    <loc>https://getnephrite.dev/es/palette</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getnephrite.dev/palette"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getnephrite.dev/es/palette"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getnephrite.dev/palette"/>
+  </url>
+</urlset>

@@ -15,7 +15,7 @@
   "framework": "react",
   "chosenAddOns": [
     "biome",
-    "vercel",
+    "netlify",
     "paraglide",
     "shadcn"
   ]
