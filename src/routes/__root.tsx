@@ -1,9 +1,9 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { LINKS } from "#/lib/site";
+import { LINKS, localeUrl, VARIANTS } from "#/lib/site";
 import { m } from "#/paraglide/messages";
-import { getLocale } from "#/paraglide/runtime";
+import { baseLocale, getLocale, locales } from "#/paraglide/runtime";
 import appCss from "../styles.css?url";
 
 // Runs before paint: opts into GSAP initial states only when motion is welcome.
@@ -16,30 +16,96 @@ export const Route = createRootRoute({
 		}
 	},
 
-	head: () => ({
-		meta: [
-			{ charSet: "utf-8" },
-			{ name: "viewport", content: "width=device-width, initial-scale=1" },
-			{ title: m.meta_title() },
-			{ name: "description", content: m.meta_description() },
-			{ name: "theme-color", content: "#080d0a" },
-			{ property: "og:type", content: "website" },
-			{ property: "og:url", content: LINKS.site },
-			{ property: "og:title", content: m.meta_title() },
-			{ property: "og:description", content: m.meta_description() },
-			{ property: "og:image", content: `${LINKS.site}/og-image.png` },
-			{ name: "twitter:card", content: "summary_large_image" },
-			{ name: "twitter:site", content: "@NephriteTheme" },
-			{ name: "twitter:title", content: m.meta_title() },
-			{ name: "twitter:description", content: m.meta_description() },
-			{ name: "twitter:image", content: `${LINKS.site}/og-image.png` },
-		],
-		links: [
-			{ rel: "stylesheet", href: appCss },
-			{ rel: "icon", type: "image/png", href: "/logo.png" },
-			{ rel: "apple-touch-icon", href: "/logo.png" },
-		],
-	}),
+	head: () => {
+		const locale = getLocale();
+		const url = localeUrl(locale, baseLocale);
+		const ogImage = `${LINKS.site}/og-image.png`;
+		const ogLocale = { en: "en_US", es: "es_419" } as const;
+
+		// Describes only what the page shows: the project and its store listings.
+		const jsonLd = {
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "Organization",
+					"@id": `${LINKS.site}/#org`,
+					name: "Nephrite",
+					url: `${LINKS.site}/`,
+					logo: `${LINKS.site}/logo.png`,
+					sameAs: [LINKS.github, LINKS.x],
+				},
+				{
+					"@type": "WebSite",
+					"@id": `${LINKS.site}/#website`,
+					name: "Nephrite",
+					url: `${LINKS.site}/`,
+					inLanguage: locales,
+					publisher: { "@id": `${LINKS.site}/#org` },
+				},
+				...VARIANTS.map((v) => ({
+					"@type": "SoftwareApplication",
+					name: v.name,
+					description: v.description(),
+					url: v.store,
+					applicationCategory: "BrowserApplication",
+					operatingSystem: "Google Chrome",
+					offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+					publisher: { "@id": `${LINKS.site}/#org` },
+				})),
+			],
+		};
+
+		return {
+			meta: [
+				{ charSet: "utf-8" },
+				{ name: "viewport", content: "width=device-width, initial-scale=1" },
+				{ title: m.meta_title() },
+				{ name: "description", content: m.meta_description() },
+				{ name: "theme-color", content: "#080d0a" },
+				{ property: "og:type", content: "website" },
+				{ property: "og:site_name", content: "Nephrite" },
+				{ property: "og:url", content: url },
+				{ property: "og:locale", content: ogLocale[locale] },
+				...locales
+					.filter((l) => l !== locale)
+					.map((l) => ({
+						property: "og:locale:alternate",
+						content: ogLocale[l],
+					})),
+				{ property: "og:title", content: m.meta_title() },
+				{ property: "og:description", content: m.meta_description() },
+				{ property: "og:image", content: ogImage },
+				{ property: "og:image:width", content: "1792" },
+				{ property: "og:image:height", content: "592" },
+				{ property: "og:image:alt", content: m.og_image_alt() },
+				{ name: "twitter:card", content: "summary_large_image" },
+				{ name: "twitter:site", content: "@NephriteTheme" },
+				{ name: "twitter:title", content: m.meta_title() },
+				{ name: "twitter:description", content: m.meta_description() },
+				{ name: "twitter:image", content: ogImage },
+				{ name: "twitter:image:alt", content: m.og_image_alt() },
+			],
+			links: [
+				{ rel: "stylesheet", href: appCss },
+				{ rel: "icon", type: "image/png", href: "/logo.png" },
+				{ rel: "apple-touch-icon", href: "/logo.png" },
+				{ rel: "canonical", href: url },
+				...locales.map((l) => ({
+					rel: "alternate",
+					hrefLang: l,
+					href: localeUrl(l, baseLocale),
+				})),
+				{
+					rel: "alternate",
+					hrefLang: "x-default",
+					href: localeUrl(baseLocale, baseLocale),
+				},
+			],
+			scripts: [
+				{ type: "application/ld+json", children: JSON.stringify(jsonLd) },
+			],
+		};
+	},
 	shellComponent: RootDocument,
 });
 

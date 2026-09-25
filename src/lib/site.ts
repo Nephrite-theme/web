@@ -60,3 +60,8 @@ export const VARIANTS: Variant[] = [
 		shot: null,
 	},
 ];
+
+// Absolute URL of the landing page in a given locale (base locale lives at "/").
+export function localeUrl(locale: string, base = "en") {
+	return locale === base ? `${LINKS.site}/` : `${LINKS.site}/${locale}/`;
+}

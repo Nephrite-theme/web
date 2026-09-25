@@ -56,5 +56,6 @@
   "footer_rights": "© {year} Nephrite",
   "language_label": "Language",
   "shot_pending": "Screenshot pending: {name}",
-  "shot_alt": "Chrome with the {name} theme applied"
+  "shot_alt": "Chrome with the {name} theme applied",
+  "og_image_alt": "Nephrite, a jade theme for Chrome, shown on a browser window"
 }
