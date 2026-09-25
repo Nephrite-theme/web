@@ -16,7 +16,7 @@ export type Variant = {
 	toolbar: string;
 	tabText: string;
 	dark: boolean;
-	// Browser-window capture at public/shots/{key}.webp (1918x1030), or null for a placeholder.
+	// Browser-window capture at public/shots/{key}.webp (1582x991), or null for a placeholder.
 	shot: string | null;
 };
 
@@ -50,8 +50,7 @@ export const VARIANTS: Variant[] = [
 		store:
 			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-jad/ijmbncbgabefgapchogbdnhfgbiiimcm",
 		...chromeColors("jade"),
-		// TODO: recapture after the palette-based Jade (now dark) ships to the store.
-		shot: null,
+		shot: "/shots/jade.webp",
 	},
 	{
 		key: "mint",
@@ -60,8 +59,7 @@ export const VARIANTS: Variant[] = [
 		store:
 			"https://chromewebstore.google.com/detail/nephrite-chrome-theme-min/ogfckpiocojbdmefjoogcmjmgfofijpg",
 		...chromeColors("mint"),
-		// TODO: recapture after the palette-based Mint ships to the store.
-		shot: null,
+		shot: "/shots/mint.webp",
 	},
 ];
 
