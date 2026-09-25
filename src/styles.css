@@ -106,6 +106,29 @@
 	html {
 		background: var(--stone-950);
 		-webkit-text-size-adjust: 100%;
+		/* Standard scrollbar styling (Firefox, Chrome 121+). */
+		scrollbar-width: thin;
+		scrollbar-color: #2e4238 var(--stone-950);
+	}
+
+	/* WebKit fallback: Safari and older Chromium. */
+	::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: var(--stone-950);
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: #2e4238;
+		border: 2px solid var(--stone-950);
+		border-radius: 999px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: var(--jade-deep);
 	}
 
 	body {
