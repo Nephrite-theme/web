@@ -100,7 +100,7 @@ Las pestañas, el menú de instalación, el menú móvil y los datos estructurad
 
 ### Agregar capturas
 
-Pon las capturas en `public/shots/<key>.webp` (1188×640, solo la ventana del navegador) y completa `shot` en la variante correspondiente. Mientras tanto, cada hueco muestra un marcador con los colores de la variante.
+Pon las capturas en `public/shots/<key>.webp` (1918×1030, solo la ventana del navegador) y completa `shot` en la variante correspondiente. Mientras tanto, cada hueco muestra un marcador con los colores de la variante.
 
 ### Agregar un idioma
 

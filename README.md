@@ -100,7 +100,7 @@ The tabs, install menu, mobile menu and structured data pick it up automatically
 
 ### Add screenshots
 
-Place captures at `public/shots/<key>.webp` (1188×640, the browser window only) and set `shot` on the matching variant. Until then, each slot shows a placeholder tinted with the variant's colors.
+Place captures at `public/shots/<key>.webp` (1918×1030, the browser window only) and set `shot` on the matching variant. Until then, each slot shows a placeholder tinted with the variant's colors.
 
 ### Add a language
 

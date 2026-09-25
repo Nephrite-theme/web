@@ -16,7 +16,7 @@ export type Variant = {
 	toolbar: string;
 	tabText: string;
 	dark: boolean;
-	// Browser-window capture at public/shots/{key}.webp (1188x640), or null for a placeholder.
+	// Browser-window capture at public/shots/{key}.webp (1918x1030), or null for a placeholder.
 	shot: string | null;
 };
 
