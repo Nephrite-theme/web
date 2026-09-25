@@ -50,10 +50,14 @@ export const PORTS: Port[] = [
 		name: () => m.rm_firefox_title(),
 		description: () => m.rm_firefox_body(),
 		category: "browser",
-		status: "next",
+		status: "available",
 		icon: SiFirefoxbrowser,
 		repo: `${LINKS.github}/firefox`,
-		installs: [],
+		installs: VARIANTS.map((v) => ({
+			name: v.name,
+			href: `https://addons.mozilla.org/firefox/addon/nephrite-${v.key}/`,
+			variant: v,
+		})),
 	},
 	{
 		key: "vscode",
