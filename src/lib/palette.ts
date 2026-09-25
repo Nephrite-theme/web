@@ -108,7 +108,7 @@ export const FLAVORS: Flavor[] = [
 			surface1: "#cbe1d4",
 			surface2: "#bdd5c7",
 			overlay0: "#83988c",
-			overlay1: "#6d8075",
+			overlay1: "#607268",
 			subtext: "#3f5247",
 			text: "#192e23",
 		},
