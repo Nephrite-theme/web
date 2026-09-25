@@ -1,46 +1,34 @@
-// Locale switcher refs:
-// - Paraglide docs: https://inlang.com/m/gerre34r/library-inlang-paraglideJs
-// - Router example: https://github.com/TanStack/router/tree/main/examples/react/i18n-paraglide#switching-locale
-import { getLocale, locales, setLocale } from '#/paraglide/runtime'
-import { m } from '#/paraglide/messages'
+import { cn } from "#/lib/utils";
+import { m } from "#/paraglide/messages";
+import { getLocale, locales, setLocale } from "#/paraglide/runtime";
 
-export default function ParaglideLocaleSwitcher() {
-  const currentLocale = getLocale()
+export default function LocaleSwitcher({ className }: { className?: string }) {
+	const current = getLocale();
 
-  return (
-    <div
-      style={{
-        display: 'flex',
-        gap: '0.5rem',
-        alignItems: 'center',
-        color: 'inherit',
-      }}
-      aria-label={m.language_label()}
-    >
-      <span style={{ opacity: 0.85 }}>
-        {m.current_locale({ locale: currentLocale })}
-      </span>
-      <div style={{ display: 'flex', gap: '0.25rem' }}>
-        {locales.map((locale) => (
-          <button
-            key={locale}
-            onClick={() => setLocale(locale)}
-            aria-pressed={locale === currentLocale}
-            style={{
-              cursor: 'pointer',
-              padding: '0.35rem 0.75rem',
-              borderRadius: '999px',
-              border: '1px solid #d1d5db',
-              background: locale === currentLocale ? '#0f172a' : 'transparent',
-              color: locale === currentLocale ? '#f8fafc' : 'inherit',
-              fontWeight: locale === currentLocale ? 700 : 500,
-              letterSpacing: '0.01em',
-            }}
-          >
-            {locale.toUpperCase()}
-          </button>
-        ))}
-      </div>
-    </div>
-  )
+	return (
+		<fieldset
+			aria-label={m.language_label()}
+			className={cn(
+				"m-0 inline-flex min-w-0 items-center rounded-full border-0 p-0.5 ring-1 ring-hairline",
+				className,
+			)}
+		>
+			{locales.map((locale) => (
+				<button
+					key={locale}
+					type="button"
+					onClick={() => setLocale(locale)}
+					aria-pressed={locale === current}
+					className={cn(
+						"rounded-full px-2.5 py-1 font-mono text-[11px] uppercase transition-colors duration-300 ease-fluid",
+						locale === current
+							? "bg-white/[0.08] text-fg"
+							: "text-fg-faint hover:text-fg-muted",
+					)}
+				>
+					{locale}
+				</button>
+			))}
+		</fieldset>
+	);
 }
