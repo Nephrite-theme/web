@@ -88,6 +88,8 @@
   "ports_build_body": "Theme any app with the Nephrite palette. Start from the template, follow the guide, and submit it to be listed here.",
   "ports_build_cta": "Use the template",
   "ports_build_guide": "Read the guide",
+  "ports_build_note": "Keep caring for it and it can join the Nephrite organization, with you as its maintainer.",
+  "port_maintained_by": "Maintained by",
   "roadmap_all": "See all ports",
   "nav_palette": "Palette",
   "palette_meta_title": "The Nephrite palette: jade colors for themes and ports",

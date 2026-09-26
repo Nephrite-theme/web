@@ -194,6 +194,9 @@ function PortsPage() {
 							<p className="mt-3 max-w-[36rem] text-fg-muted">
 								{m.ports_build_body()}
 							</p>
+							<p className="mt-3 max-w-[36rem] text-sm text-fg-muted">
+								{m.ports_build_note()}
+							</p>
 						</div>
 						<div className="mt-auto flex flex-wrap gap-3">
 							<PillLink href={TEMPLATE_URL}>{m.ports_build_cta()}</PillLink>
@@ -295,6 +298,24 @@ function PortCard({ port }: { port: Port }) {
 						<SiGithub aria-hidden size={14} />
 						{live ? m.port_source() : m.port_follow()}
 					</a>
+					{port.maintainers && port.maintainers.length > 0 && (
+						<p className="text-sm text-fg-muted">
+							{m.port_maintained_by()}{" "}
+							{port.maintainers.map((user, i) => (
+								<span key={user}>
+									{i > 0 && ", "}
+									<a
+										href={`https://github.com/${user}`}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-fg underline decoration-hairline-strong underline-offset-4 transition-colors duration-300 ease-fluid hover:decoration-jade"
+									>
+										@{user}
+									</a>
+								</span>
+							))}
+						</p>
+					)}
 				</div>
 			</div>
 		</article>

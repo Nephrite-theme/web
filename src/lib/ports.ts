@@ -24,6 +24,8 @@ export type Port = {
 	}>;
 	// Source repository, once one exists.
 	repo: string | null;
+	// GitHub usernames credited on the card; omitted for ports the core team keeps.
+	maintainers?: string[];
 	// Store listings once the port ships: one per variant, or a single listing
 	// (no variant) when one package bundles every flavor.
 	installs: {
