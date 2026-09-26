@@ -26,7 +26,11 @@ export type Port = {
 	repo: string | null;
 	// Store listings once the port ships: one per variant, or a single listing
 	// (no variant) when one package bundles every flavor.
-	installs: { name: string; href: string; variant?: Variant }[];
+	installs: {
+		name: string | (() => string);
+		href: string;
+		variant?: Variant;
+	}[];
 };
 
 // Every app Nephrite targets, shipped or not. The home roadmap and /ports both
@@ -94,10 +98,16 @@ export const PORTS: Port[] = [
 		name: () => m.rm_terminal_title(),
 		description: () => m.rm_terminal_body(),
 		category: "terminal",
-		status: "next",
+		status: "available",
 		icon: FileTerminalIcon,
 		repo: `${LINKS.github}/terminal`,
-		installs: [],
+		// Terminals have no store, so the README's install section stands in.
+		installs: [
+			{
+				name: () => m.port_install_guide(),
+				href: `${LINKS.github}/terminal#install`,
+			},
+		],
 	},
 ];
 

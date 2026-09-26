@@ -238,7 +238,7 @@ function PortCard({ port }: { port: Port }) {
 					{port.installs.length > 0 && (
 						<ul className="flex flex-wrap gap-2">
 							{port.installs.map((i) => (
-								<li key={i.name}>
+								<li key={i.href}>
 									<a
 										href={i.href}
 										target="_blank"
@@ -251,7 +251,10 @@ function PortCard({ port }: { port: Port }) {
 										{i.variant && (
 											<Swatch variant={i.variant} className="size-6" />
 										)}
-										{i.name.replace("Nephrite ", "")}
+										{(typeof i.name === "function" ? i.name() : i.name).replace(
+											"Nephrite ",
+											"",
+										)}
 									</a>
 								</li>
 							))}
