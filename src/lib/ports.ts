@@ -118,6 +118,14 @@ export const PORT_CATEGORIES: PortCategory[] = [
 	"music",
 ];
 
+export const TEMPLATE_URL = `${LINKS.github}/template/generate`;
+
+// The contributing guide lives in the org's .github repository, in both locales.
+export const CONTRIBUTING_URL = {
+	en: `${LINKS.github}/.github/blob/main/CONTRIBUTING.md#building-a-port`,
+	es: `${LINKS.github}/.github/blob/main/CONTRIBUTING.es.md`,
+} as const;
+
 export const REQUEST_PORT_URL = `${LINKS.github}/web/issues/new?template=port-request.yml`;
 
 export const STATUS_LABEL: Record<PortStatus, () => string> = {

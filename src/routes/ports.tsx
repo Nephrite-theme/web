@@ -9,16 +9,19 @@ import { pageHead } from "#/lib/head";
 import {
 	CATEGORY_FILTER_LABEL,
 	CATEGORY_LABEL,
+	CONTRIBUTING_URL,
 	PORT_CATEGORIES,
 	PORTS,
 	type Port,
 	type PortCategory,
 	REQUEST_PORT_URL,
 	STATUS_LABEL,
+	TEMPLATE_URL,
 } from "#/lib/ports";
 import { LINKS } from "#/lib/site";
 import { cn } from "#/lib/utils";
 import { m } from "#/paraglide/messages";
+import { getLocale } from "#/paraglide/runtime";
 
 type PortsSearch = { q?: string; category?: PortCategory };
 
@@ -168,16 +171,39 @@ function PortsPage() {
 				)}
 			</section>
 
-			<section className="mx-auto w-full max-w-[1400px] px-4 pb-28 md:px-8 md:pb-40">
+			<section className="mx-auto grid w-full max-w-[1400px] gap-4 px-4 pb-28 md:px-8 md:pb-40 lg:grid-cols-2">
 				<div data-reveal className="bezel">
-					<div className="bezel-core flex flex-col items-start gap-6 p-8 md:flex-row md:items-center md:justify-between md:p-12">
+					<div className="bezel-core flex h-full flex-col items-start gap-6 p-8 md:p-12">
 						<div>
 							<h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
 								{m.ports_request_title()}
 							</h2>
 							<p className="mt-3 text-fg-muted">{m.ports_request_body()}</p>
 						</div>
-						<PillLink href={REQUEST_PORT_URL}>{m.ports_request_cta()}</PillLink>
+						<PillLink href={REQUEST_PORT_URL} className="mt-auto">
+							{m.ports_request_cta()}
+						</PillLink>
+					</div>
+				</div>
+				<div data-reveal className="bezel">
+					<div className="bezel-core flex h-full flex-col items-start gap-6 p-8 md:p-12">
+						<div>
+							<h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
+								{m.ports_build_title()}
+							</h2>
+							<p className="mt-3 max-w-[36rem] text-fg-muted">
+								{m.ports_build_body()}
+							</p>
+						</div>
+						<div className="mt-auto flex flex-wrap gap-3">
+							<PillLink href={TEMPLATE_URL}>{m.ports_build_cta()}</PillLink>
+							<PillLink
+								href={CONTRIBUTING_URL[getLocale() === "es" ? "es" : "en"]}
+								variant="ghost"
+							>
+								{m.ports_build_guide()}
+							</PillLink>
+						</div>
 					</div>
 				</div>
 			</section>
