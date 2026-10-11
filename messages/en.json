@@ -90,6 +90,7 @@
   "ports_build_guide": "Read the guide",
   "ports_build_note": "Keep caring for it and it can join the Nephrite organization, with you as its maintainer.",
   "port_maintained_by": "Maintained by",
+  "footer_email": "Email {email}",
   "roadmap_all": "See all ports",
   "nav_palette": "Palette",
   "palette_meta_title": "The Nephrite palette: jade colors for themes and ports",

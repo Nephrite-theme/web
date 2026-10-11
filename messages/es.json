@@ -90,6 +90,7 @@
   "ports_build_guide": "Leer la guía",
   "ports_build_note": "Si sigues cuidándolo, puede unirse a la organización Nephrite contigo como responsable.",
   "port_maintained_by": "Mantenido por",
+  "footer_email": "Escribir a {email}",
   "roadmap_all": "Ver todas las apps",
   "nav_palette": "Paleta",
   "palette_meta_title": "La paleta Nephrite: colores jade para temas y ports",

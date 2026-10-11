@@ -1,4 +1,5 @@
 import { SiGithub, SiX } from "@icons-pack/react-simple-icons";
+import { LetterIcon } from "@solar-icons/react/linear";
 import LocaleSwitcher from "#/components/LocaleSwitcher";
 import { InstallMenu } from "#/components/ui/InstallMenu";
 import { Lockup, Mark } from "#/components/ui/Logo";
@@ -6,8 +7,13 @@ import { LINKS } from "#/lib/site";
 import { m } from "#/paraglide/messages";
 
 const socials = [
-	{ href: LINKS.github, label: "GitHub", icon: SiGithub },
-	{ href: LINKS.x, label: "X", icon: SiX },
+	{ href: LINKS.github, label: () => "GitHub", icon: SiGithub },
+	{ href: LINKS.x, label: () => "X", icon: SiX },
+	{
+		href: `mailto:${LINKS.email}`,
+		label: () => m.footer_email({ email: LINKS.email }),
+		icon: LetterIcon,
+	},
 ];
 
 export function Closing() {
@@ -72,11 +78,14 @@ export function Footer() {
 					<LocaleSwitcher />
 					{socials.map(({ href, label, icon: Icon }) => (
 						<a
-							key={label}
+							key={href}
 							href={href}
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label={label}
+							// mailto opens the mail app, so only web links get a new tab.
+							{...(href.startsWith("http")
+								? { target: "_blank", rel: "noopener noreferrer" }
+								: {})}
+							aria-label={label()}
+							title={label()}
 							className="flex size-10 items-center justify-center rounded-full bg-white/[0.04] text-fg-muted ring-1 ring-hairline transition-colors duration-300 ease-fluid hover:text-fg"
 						>
 							<Icon size={16} />

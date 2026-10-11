@@ -4,6 +4,7 @@ import { FLAVORS, type Flavor, type FlavorKey } from "./palette";
 export const LINKS = {
 	github: "https://github.com/Nephrite-theme",
 	x: "https://x.com/NephriteTheme",
+	email: "nephrite.theme@proton.me",
 	site: "https://getnephrite.dev",
 } as const;
 

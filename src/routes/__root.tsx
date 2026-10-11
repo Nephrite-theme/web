@@ -31,6 +31,7 @@ export const Route = createRootRoute({
 					name: "Nephrite",
 					url: `${LINKS.site}/`,
 					logo: `${LINKS.site}/logo-512.png`,
+					email: LINKS.email,
 					sameAs: [LINKS.github, LINKS.x],
 				},
 				{
