@@ -1,6 +1,9 @@
 minimumReleaseAge: 1440
 strictDepBuilds: true
 blockExoticSubdeps: true
+# Don't record pnpm's own version in the lockfile; CI and Netlify install
+# pnpm themselves, and a frozen install can't write that block.
+pmOnFail: ignore
 
 allowBuilds:
   esbuild: true
