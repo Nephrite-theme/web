@@ -21,11 +21,12 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-      # pnpm 12 would record its own version in the lockfile, which a frozen
-      # install can't do; the action already installed the right version.
+      # pnpm 12 records its own version in the lockfile when "packageManager"
+      # pins it, and a frozen install can't write that. The action already
+      # installed the pinned version, so skip the check (pmOnFail: ignore).
       - run: pnpm install --frozen-lockfile
         env:
-          npm_config_manage_package_manager_versions: "false"
+          npm_config_pm_on_fail: ignore
       - name: Lint and format
         run: pnpm check
       # The build compiles Paraglide's messages, which the type check imports.
