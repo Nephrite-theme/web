@@ -10,3 +10,8 @@ todos.json
 src/paraglide
 .netlify
 .output
+
+# Local agent tooling, not part of the site
+.claude/
+.agents/
+skills-lock.json
