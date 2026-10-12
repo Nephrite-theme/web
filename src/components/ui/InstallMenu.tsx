@@ -99,7 +99,7 @@ export function InstallMenu({
 									target="_blank"
 									rel="noopener noreferrer"
 									onClick={() => setOpen(false)}
-									className="group flex items-center gap-3 rounded-[1.1rem] px-3 py-3 transition-colors duration-300 ease-fluid hover:bg-white/[0.05]"
+									className="group flex items-center gap-3 rounded-[1.1rem] px-3 py-3 transition-colors duration-300 ease-fluid hover:bg-white/5"
 								>
 									<Swatch variant={v} className="size-7" />
 									<span className="min-w-0 flex-1 text-left">

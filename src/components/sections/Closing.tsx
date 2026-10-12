@@ -18,12 +18,12 @@ const socials = [
 
 export function Closing() {
 	return (
-		<section className="relative isolate z-10 mx-auto w-full max-w-[1400px] px-4 py-28 md:px-8 md:py-44">
+		<section className="relative isolate z-10 mx-auto w-full max-w-350 px-4 py-28 md:px-8 md:py-44">
 			<div
 				aria-hidden
-				className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 mx-auto h-[28rem] max-w-[48rem] -translate-y-1/2 rounded-full bg-jade/10 blur-[120px]"
+				className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 mx-auto h-112 max-w-3xl -translate-y-1/2 rounded-full bg-jade/10 blur-[120px]"
 			/>
-			<div className="mx-auto flex max-w-[44rem] flex-col items-center text-center">
+			<div className="mx-auto flex max-w-176 flex-col items-center text-center">
 				<div data-reveal className="mb-10">
 					<Mark className="size-20 md:size-24" />
 				</div>
@@ -35,7 +35,7 @@ export function Closing() {
 				</h2>
 				<p
 					data-reveal
-					className="mt-6 max-w-[30rem] text-lg leading-relaxed text-fg-muted"
+					className="mt-6 max-w-120 text-lg leading-relaxed text-fg-muted"
 				>
 					{m.closing_body()} {m.closing_follow()}{" "}
 					<a
@@ -67,8 +67,8 @@ export function Closing() {
 
 export function Footer() {
 	return (
-		<footer className="relative mx-auto w-full max-w-[1400px] px-4 pb-10 md:px-8">
-			<div className="flex flex-col gap-8 rounded-[2rem] bg-white/[0.02] px-6 py-8 ring-1 ring-hairline md:flex-row md:items-center md:justify-between md:px-10">
+		<footer className="relative mx-auto w-full max-w-350 px-4 pb-10 md:px-8">
+			<div className="flex flex-col gap-8 rounded-4xl bg-white/2 px-6 py-8 ring-1 ring-hairline md:flex-row md:items-center md:justify-between md:px-10">
 				<div className="flex flex-col gap-2">
 					<Lockup className="text-2xl" />
 					<p className="text-sm text-fg-muted">{m.footer_tagline()}</p>
@@ -86,7 +86,7 @@ export function Footer() {
 								: {})}
 							aria-label={label()}
 							title={label()}
-							className="flex size-10 items-center justify-center rounded-full bg-white/[0.04] text-fg-muted ring-1 ring-hairline transition-colors duration-300 ease-fluid hover:text-fg"
+							className="flex size-10 items-center justify-center rounded-full bg-white/4 text-fg-muted ring-1 ring-hairline transition-colors duration-300 ease-fluid hover:text-fg"
 						>
 							<Icon size={16} />
 						</a>
