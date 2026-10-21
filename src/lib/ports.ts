@@ -90,10 +90,16 @@ export const PORTS: Port[] = [
 		name: () => m.rm_spotify_title(),
 		description: () => m.rm_spotify_body(),
 		category: "music",
-		status: "next",
+		status: "available",
 		icon: SiSpotify,
-		repo: null,
-		installs: [],
+		repo: `${LINKS.github}/spotify`,
+		// Installed through Spicetify, so the README's install section stands in.
+		installs: [
+			{
+				name: () => m.port_install_guide(),
+				href: `${LINKS.github}/spotify#install`,
+			},
+		],
 	},
 	{
 		key: "terminal",
