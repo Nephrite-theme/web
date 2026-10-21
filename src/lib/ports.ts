@@ -2,6 +2,7 @@ import {
 	SiFirefoxbrowser,
 	SiGooglechrome,
 	SiSpotify,
+	SiThunderbird,
 } from "@icons-pack/react-simple-icons";
 import { CodeSquareIcon, FileTerminalIcon } from "@solar-icons/react/linear";
 import type { ComponentType } from "react";
@@ -9,7 +10,7 @@ import { m } from "#/paraglide/messages";
 import { LINKS, VARIANTS, type Variant } from "./site";
 
 export type PortStatus = "available" | "next" | "planned";
-export type PortCategory = "browser" | "editor" | "terminal" | "music";
+export type PortCategory = "browser" | "editor" | "terminal" | "mail" | "music";
 
 export type Port = {
 	key: string;
@@ -86,6 +87,16 @@ export const PORTS: Port[] = [
 		],
 	},
 	{
+		key: "thunderbird",
+		name: () => m.rm_thunderbird_title(),
+		description: () => m.rm_thunderbird_body(),
+		category: "mail",
+		status: "next",
+		icon: SiThunderbird,
+		repo: `${LINKS.github}/thunderbird`,
+		installs: [],
+	},
+	{
 		key: "spotify",
 		name: () => m.rm_spotify_title(),
 		description: () => m.rm_spotify_body(),
@@ -123,6 +134,7 @@ export const PORT_CATEGORIES: PortCategory[] = [
 	"browser",
 	"editor",
 	"terminal",
+	"mail",
 	"music",
 ];
 
@@ -146,6 +158,7 @@ export const CATEGORY_LABEL: Record<PortCategory, () => string> = {
 	browser: () => m.kind_browser(),
 	editor: () => m.kind_editor(),
 	terminal: () => m.kind_terminal(),
+	mail: () => m.kind_mail(),
 	music: () => m.kind_music(),
 };
 
@@ -153,5 +166,6 @@ export const CATEGORY_FILTER_LABEL: Record<PortCategory, () => string> = {
 	browser: () => m.cat_browser(),
 	editor: () => m.cat_editor(),
 	terminal: () => m.cat_terminal(),
+	mail: () => m.cat_mail(),
 	music: () => m.cat_music(),
 };
